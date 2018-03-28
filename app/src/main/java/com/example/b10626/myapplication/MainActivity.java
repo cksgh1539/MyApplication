@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,5 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         BackgroundWork backgroundWork = new BackgroundWork((this));
         backgroundWork.execute(type, username, password);
+    }
+
+    public void OpenReg(View view) {
+        Intent intent = new Intent(this,Join.class);
+      startActivity(intent);
     }
 }

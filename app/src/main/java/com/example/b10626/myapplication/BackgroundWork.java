@@ -30,6 +30,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     protected String doInBackground(String... voids) {
         String type = voids[0];
         String login_url = "http://113.198.80.147/test_login.php";
+        String Join_url = "http://113.198.80.147/Join.php";
         if(type.equals("login")) {
             try {
                 String user_name = voids[1];
@@ -58,6 +59,45 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                bufferedReader.close();
                httpURLConnection.disconnect();
                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if(type.equals("submit")){
+            try {
+                String uid = voids[1];
+                String name = voids[2];
+                String  id = voids[3];
+                String password = voids[4];
+                URL url = new URL(Join_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("uid","UTF-8")+"="+URLEncoder.encode(uid,"UTF-8")+"&"+
+                URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
+                URLEncoder.encode("user","UTF-8")+"="+URLEncoder.encode(id,"UTF-8")+"&"+
+                URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result = "";
+                String line;
+
+                while((line = bufferedReader.readLine())!=null){
+                    result += line;
+                }
+                bufferedReader.close();
+                httpURLConnection.disconnect();
+                return result;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
