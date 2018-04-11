@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
+        android:password="true"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="90dp" />

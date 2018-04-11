@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -56,7 +60,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
                 String result = "";
                 String line;
 
@@ -92,10 +96,11 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
+
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
                 String result = "";
                 String line;
 
@@ -110,8 +115,6 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
         return null;
     }
@@ -120,37 +123,43 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     protected void onPreExecute() {
        // alertDialog = new AlertDialog.Builder(context).create();
         alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("Login Status");
+      //  alertDialog.setTitle("Login Status");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onPostExecute(String result) {
+
         alertDialog.setMessage(result);
-        alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        alertDialog.show();
-        if(result.equals("found")){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                alertDialog.create().dismiss();
-
-                    Intent intent = new Intent(context,UserData.class);
+        if(result.equals("로그인 성공!")) {
+            alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(context,Login_menu.class);
                     intent.putExtra("ID",user_id);
                     intent.putExtra("password",user_password);
                     context.startActivity(intent);
+                }
+            });
+           alertDialog.setNegativeButton("취소",null);
 
-            }
-        },2000);
-    }
+    }else if(result.equals("회원 가입 성공!")){
 
-
-
+            alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //해당액티비티 위에 스택 지움
+                    context.startActivity(intent);
+                }
+            });
+        }else if(result.equals("이미 등록된 아이디입니다!")){
+            alertDialog.setPositiveButton("확인",null);
+        }else if(result.equals("로그인 실패!")){
+        alertDialog.setPositiveButton("확인",null);
+        }
+        alertDialog.show();
     }
 
     @Override

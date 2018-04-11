@@ -1,23 +1,23 @@
 package com.example.b10626.myapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,41 +34,36 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
 
 /**
- * Created by hp on 2018-03-30.
+ * Created by hp on 2018-04-09.
  */
 
-public class UserData extends AppCompatActivity {
-   AlertDialog.Builder alertDialog;
-    ListView listView;
-    php task;
-    ArrayList<userInfoItem> listItem = new ArrayList<>();
-
+public class Login_menu extends AppCompatActivity {
+    TextView user_total,user_name;
+    AlertDialog.Builder alertDialog;
     String ID,PWD;
+    php task;
+    private final double finish_interval_time=2000;
+    private double backPressedTime =0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_db);
+        setContentView(R.layout.login_menu);
 
+        user_total = (TextView)findViewById(R.id.user_total);
+        user_name = (TextView)findViewById(R.id.user_name);
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
 
         task = new php();
-
-        //logout = (Button)findViewById(R.id.logout);
-        listView = (ListView)findViewById(R.id.listView);
-        task.execute("http://113.198.80.147/login_done.php",ID,PWD);
+        task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
     }
 
+    private class php extends AsyncTask<String, Void, String> { //---------------로그인 할 때 받은 아이디 , 패스워드 php에서 비교
 
-
-    private class php extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
@@ -104,75 +99,68 @@ public class UserData extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-           // StringBuilder jsonHtml = new StringBuilder();
-
-      /*      try {
-                // 연결 url 설정
-                URL url = new URL(urls[0]);
-                // 커넥션 객체 생성
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                // 연결되었으면.
-                if (conn != null) {
-                    conn.setConnectTimeout(10000);
-                    conn.setUseCaches(false);
-                    // 연결되었음 코드가 리턴되면.
-                    if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-                        for (; ; ) {
-                            // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
-                            String line = br.readLine();
-                            if (line == null) break;
-                            // 저장된 텍스트 라인을 jsonHtml에 붙여넣음
-                            jsonHtml.append(line + "\n");
-                        }
-                        br.close();
-                    }
-                    conn.disconnect();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }*/
-
-           // return jsonHtml.toString();
             return null;
         }
 
-        protected void onPostExecute(String str) {
+        protected void onPostExecute(String str) { //-----------서버에서 총 금액 및 이름 받기
 
-        String date,uid,name,ins,deposit,total;
+            String total="";
+            String name="";
 
-        try{
-            JSONObject root = new JSONObject(String.valueOf(str));
-            JSONArray ja = root.getJSONArray("results");
-            for(int i=0; i<ja.length(); i++){
-                JSONObject jo = ja.getJSONObject(i);
-                date = jo.getString("date");
-                uid = jo.getString("uid");
-                name = jo.getString("name");
-                ins = jo.getString("ins");
-                deposit = jo.getString("deposit");
-                total = jo.getString("total");
+            try{
+                JSONObject root = new JSONObject(String.valueOf(str));
+                JSONArray ja = root.getJSONArray("results");
+                for(int i=0; i<ja.length(); i++){
+                    JSONObject jo = ja.getJSONObject(i);
+                    total = jo.getString("total");
+                    name = jo.getString("name");
+                }
 
-                listItem.add(new userInfoItem(date,uid,name,ins,deposit,total));
+            }catch(JSONException e){
+                e.printStackTrace();
             }
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-           infoAdapter adapter = new infoAdapter(listItem,getApplicationContext(),R.layout.infolist);
-          listView.setAdapter(adapter);
-          listView.setDividerHeight(10);
+
+            user_name.setText("안녕하세요" +name+" 님");
+            user_total.setText(name+"님의 총 적립금은 "+ total +"원 입니다.");
         }
     }
 
+    public void trade_detail(View view) { //------------------상세 거래내역
+        String username = ID;
+        String password = PWD;
+   //     String type = "trade_detail";
+
+        Intent intent = new Intent(this,UserData.class);
+        intent.putExtra("ID", username);
+        intent.putExtra("password",password);
+        startActivity(intent);
+
+
+     //    BackgroundWork backgroundWork = new BackgroundWork((this));
+     //   backgroundWork.execute(type, username, password);
+
+    }
+
+    public void graph(View view) { //------------------------그래프
+        String username = ID;
+        String password = PWD;
+        String type = "trade_detail";
+
+        BackgroundWork backgroundWork = new BackgroundWork((this));
+        backgroundWork.execute(type, username, password);
+
+    }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { //------------------------------로그아웃 옵션메뉴
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             case R.id.action_logout:
@@ -182,17 +170,33 @@ public class UserData extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //해당 액티비티 위에 스택 삭제
                         startActivity(intent);
                     }
                 });
                 alertDialog.setNegativeButton("취소",null);
                 alertDialog.show();
-                //  return true;
+                // return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+    @Override
+    public void onBackPressed() { //---------------------뒤로가기 앱 종료
+        double tempTime = System.currentTimeMillis();
+        double intervaleTime = tempTime - backPressedTime;
+
+        if(0 <= intervaleTime && finish_interval_time >= intervaleTime){
+            super.onBackPressed();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+           // finish();
+        }else{
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "한번 더 누르시면 로그인 화면으로 돌아갑니다!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
-
-
