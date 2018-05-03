@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,10 +44,12 @@ public class Login_menu extends AppCompatActivity {
     TextView user_total,user_name;
     AlertDialog.Builder alertDialog;
     String ID,PWD;
+    int deposit_total = 0;
+    String total="";
     php task;
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
-
+    SwipeRefreshLayout SRlayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,16 @@ public class Login_menu extends AppCompatActivity {
 
         task = new php();
         task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
+
+        SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
+        SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                task = new php();
+                task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
+                SRlayout.setRefreshing(false);
+            }
+        });
     }
 
     private class php extends AsyncTask<String, Void, String> { //---------------로그인 할 때 받은 아이디 , 패스워드 php에서 비교
@@ -104,8 +117,11 @@ public class Login_menu extends AppCompatActivity {
 
         protected void onPostExecute(String str) { //-----------서버에서 총 금액 및 이름 받기
 
-            String total="";
+
             String name="";
+            String deposit="";
+            //String name="";
+
 
             try{
                 JSONObject root = new JSONObject(String.valueOf(str));
@@ -114,6 +130,8 @@ public class Login_menu extends AppCompatActivity {
                     JSONObject jo = ja.getJSONObject(i);
                     total = jo.getString("total");
                     name = jo.getString("name");
+                    deposit = jo.getString("deposit");
+                    deposit_total += Integer.parseInt(deposit);
                 }
 
             }catch(JSONException e){
@@ -140,14 +158,29 @@ public class Login_menu extends AppCompatActivity {
      //   backgroundWork.execute(type, username, password);
 
     }
+    public void Contents_list(View view) { //------------------------그래프
+        String username = ID;
+        String password = PWD;
+        // String type = "trade_detail";
+
+        Intent intent = new Intent(this,Contents_list.class);
+        intent.putExtra("ID", username);
+        intent.putExtra("password",password);
+        startActivity(intent);
+
+    }
 
     public void graph(View view) { //------------------------그래프
         String username = ID;
         String password = PWD;
-        String type = "trade_detail";
+       // String type = "trade_detail";
 
-        BackgroundWork backgroundWork = new BackgroundWork((this));
-        backgroundWork.execute(type, username, password);
+        Intent intent = new Intent(this,user_chart.class);
+        intent.putExtra("ID", username);
+        intent.putExtra("password",password);
+        intent.putExtra("total",Integer.parseInt(total));
+        intent.putExtra("deposit_total",deposit_total);
+        startActivity(intent);
 
     }
     @Override

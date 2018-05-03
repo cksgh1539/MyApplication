@@ -8,16 +8,20 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +51,8 @@ public class UserData extends AppCompatActivity {
     ListView listView;
     php task;
     ArrayList<userInfoItem> listItem = new ArrayList<>();
-
+    SwipeRefreshLayout SRlayout;
+    LinearLayout Linear;
     String ID,PWD;
 
     @Override
@@ -58,12 +63,38 @@ public class UserData extends AppCompatActivity {
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
-
         task = new php();
-
         //logout = (Button)findViewById(R.id.logout);
-        listView = (ListView)findViewById(R.id.listView);
-        task.execute("http://113.198.80.147/login_done.php",ID,PWD);
+        listView = (ListView) findViewById(R.id.listView);
+        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+
+        SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
+        Linear = (LinearLayout) findViewById(R.id.Linear);
+        if (Linear.getScrollY() == 0) {
+            SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    listItem.clear();
+                    task = new php();
+                    task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+                    Toast.makeText(getApplicationContext(), "갱신 중입니다!", Toast.LENGTH_SHORT).show();
+                    SRlayout.setRefreshing(false);
+                }
+            });
+        }
+
+
+
+        /*SRlayout.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if(Linear.getScrollY() == 0){
+                    SRlayout.setEnabled(true);
+                }else {
+                    SRlayout.setEnabled(false);
+                }
+            }
+        });*/
     }
 
 
@@ -139,7 +170,7 @@ public class UserData extends AppCompatActivity {
 
         protected void onPostExecute(String str) {
 
-        String date,uid,name,ins,deposit,total;
+        String date,uid,name,ins,money,total;
 
         try{
             JSONObject root = new JSONObject(String.valueOf(str));
@@ -147,13 +178,13 @@ public class UserData extends AppCompatActivity {
             for(int i=0; i<ja.length(); i++){
                 JSONObject jo = ja.getJSONObject(i);
                 date = jo.getString("date");
-                uid = jo.getString("uid");
+             //   uid = jo.getString("uid");
                 name = jo.getString("name");
-                ins = jo.getString("ins");
-                deposit = jo.getString("deposit");
+              //  ins = jo.getString("ins");
+                money = jo.getString("money");
                 total = jo.getString("total");
 
-                listItem.add(new userInfoItem(date,uid,name,ins,deposit,total));
+                listItem.add(new userInfoItem(date,name,money,total));
             }
         }catch(JSONException e){
             e.printStackTrace();

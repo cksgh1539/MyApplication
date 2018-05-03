@@ -13,15 +13,15 @@ public class userInfoItem {
         mData = data;
 }
 
-    public userInfoItem(String uid, String date,String name,String ins, String deposit, String total){
+    public userInfoItem(String date ,String name, String money, String total){
 
-        mData = new String[6];
-        mData[0] = uid;
-        mData[1] = date;
-        mData[2] = name;
-        mData[3] = ins;
-        mData[4] = deposit;
-        mData[5] = total;
+        mData = new String[4];
+        mData[0] = date;
+      //  mData[1] = uid;
+        mData[1] = name;
+       // mData[3] = ins;
+        mData[2] = money;
+        mData[3] = total;
 
     }
 

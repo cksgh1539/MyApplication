@@ -2,5 +2,6 @@
     <string name="app_name">Drop The Bit</string>
     <string name="trade_detail">상세 거래 내역</string>
     <string name="graph">그래프</string>
+    <string name="Contents">기부 상품 보기</string>
 
 </resources>

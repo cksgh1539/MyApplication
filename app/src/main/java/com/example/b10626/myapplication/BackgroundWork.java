@@ -42,6 +42,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
         String type = voids[0];
         String login_url = "http://113.198.80.147/test_login.php";
         String Join_url = "http://113.198.80.147/join.php";
+        String Donation_Url = "http://113.198.80.147/donation.php";
         if(type.equals("login")) {
             try {
                 user_id = voids[1];
@@ -115,6 +116,46 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if(type.equals("Donation")){
+            try {
+                user_id = voids[1];
+                user_password = voids[2];
+                String second_pwd = voids[3];
+                String  price = voids[4];
+
+                URL url = new URL(Donation_Url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("first","UTF-8")+"="+URLEncoder.encode(user_password,"UTF-8")+"&"+
+                        URLEncoder.encode("second","UTF-8")+"="+URLEncoder.encode(second_pwd,"UTF-8")+"&"+
+                        URLEncoder.encode("price","UTF-8")+"="+URLEncoder.encode(price,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+                String result = "";
+                String line;
+
+                while((line = bufferedReader.readLine())!=null){
+                    result += line;
+                }
+                bufferedReader.close();
+                httpURLConnection.disconnect();
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -158,6 +199,17 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             alertDialog.setPositiveButton("확인",null);
         }else if(result.equals("로그인 실패!")){
         alertDialog.setPositiveButton("확인",null);
+        }else if(result.equals("기부왕!")){
+
+            alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(context,Login_menu.class);
+                    intent.putExtra("ID",user_id);
+                    intent.putExtra("password",user_password);
+                    context.startActivity(intent);
+                }
+            });
         }
         alertDialog.show();
     }

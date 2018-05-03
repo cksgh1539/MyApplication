@@ -34,11 +34,12 @@ public class infoAdapter extends BaseAdapter {
 
 
         TextView info = convertView.findViewById(R.id.info);
-        info.setText("date :" + fData.get(position).getData(0) + "\nuid:" + fData.get(position).getData(1) + "\nname:" + fData.get(position).getData(2)
-                + "\nins:" + fData.get(position).getData(3) + "\ndeposit:" + fData.get(position).getData(4) + "\ntotal:" + fData.get(position).getData(5));
+        info.setText("date :" + fData.get(position).getData(0) + "\nname:" + fData.get(position).getData(1)
+                 + "\nmoney:" + fData.get(position).getData(2) + "\ntotal:" + fData.get(position).getData(3));
 
 
         return convertView;
+
     }
     @Override
     public int getCount() {
@@ -54,6 +55,7 @@ public class infoAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
 
 
 }

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/SRlayout">
+
+<LinearLayout
+
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -49,6 +55,13 @@
             android:text="@string/trade_detail" />
 
         <Button
+            android:id="@+id/Contents"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:onClick="Contents_list"
+            android:text="@string/Contents" />
+
+        <Button
             android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="64dp"
@@ -59,3 +72,4 @@
 
 
 </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
