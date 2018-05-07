@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="name"
+        android:hint="이름"
         android:inputType="textPersonName" />
 
     <EditText
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="ID"
+        android:hint="아이디"
         android:inputType="textPersonName" />
 
     <EditText
@@ -35,14 +35,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="password"
+        android:hint="비밀번호"
         android:password="true"
         android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/password2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="2차 비밀번호"
+        android:password="true"
+        android:inputType="textPersonName"
+       />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="등록"
         android:onClick="Submit"/>
 </LinearLayout>

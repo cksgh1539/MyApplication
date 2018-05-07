@@ -82,6 +82,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 String name = voids[2];
                 String  id = voids[3];
                 String password = voids[4];
+                String password2 = voids[5];
                 URL url = new URL(Join_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -93,7 +94,8 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 String post_data = URLEncoder.encode("uid","UTF-8")+"="+URLEncoder.encode(uid,"UTF-8")+"&"+
                 URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
                 URLEncoder.encode("user","UTF-8")+"="+URLEncoder.encode(id,"UTF-8")+"&"+
-                URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+                URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
+                        URLEncoder.encode("password2","UTF-8")+"="+URLEncoder.encode(password2,"UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -122,6 +124,8 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 user_password = voids[2];
                 String second_pwd = voids[3];
                 String  price = voids[4];
+                int point = Integer.parseInt(price);
+                String Point = String.valueOf(point/10);
 
                 URL url = new URL(Donation_Url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -133,7 +137,9 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
 
                 String post_data = URLEncoder.encode("first","UTF-8")+"="+URLEncoder.encode(user_password,"UTF-8")+"&"+
                         URLEncoder.encode("second","UTF-8")+"="+URLEncoder.encode(second_pwd,"UTF-8")+"&"+
-                        URLEncoder.encode("price","UTF-8")+"="+URLEncoder.encode(price,"UTF-8");
+                        URLEncoder.encode("price","UTF-8")+"="+URLEncoder.encode(price,"UTF-8")+"&"+
+                        URLEncoder.encode("ID","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8")+"&"+
+                        URLEncoder.encode("Point","UTF-8")+"="+URLEncoder.encode(Point,"UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
@@ -164,6 +170,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     protected void onPreExecute() {
        // alertDialog = new AlertDialog.Builder(context).create();
         alertDialog = new AlertDialog.Builder(context);
+
       //  alertDialog.setTitle("Login Status");
     }
 
@@ -171,19 +178,22 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result) {
 
+        Handler handler = new Handler();
         alertDialog.setMessage(result);
 
         if(result.equals("로그인 성공!")) {
-            alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(context,Login_menu.class);
-                    intent.putExtra("ID",user_id);
-                    intent.putExtra("password",user_password);
-                    context.startActivity(intent);
-                }
-            });
-           alertDialog.setNegativeButton("취소",null);
+     //   alertDialog.setMessage("확인되었습니다");
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent intent = new Intent(context,Login_menu.class);
+                intent.putExtra("ID",user_id);
+                intent.putExtra("password",user_password);
+                context.startActivity(intent);
+            }
+        },1000);
+
 
     }else if(result.equals("회원 가입 성공!")){
 
@@ -210,8 +220,21 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                     context.startActivity(intent);
                 }
             });
+        }else if(result.equals("비밀번호를 다시 입력해주세요!")){
+            alertDialog.setPositiveButton("확인",null);
+        }else if(result.equals("금액이 부족합니다")){
+            alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(context,Login_menu.class);
+                    intent.putExtra("ID",user_id);
+                    intent.putExtra("password",user_password);
+                    context.startActivity(intent);
+                }
+            });
         }
         alertDialog.show();
+
     }
 
     @Override

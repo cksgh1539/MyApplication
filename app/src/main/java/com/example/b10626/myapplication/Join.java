@@ -11,8 +11,8 @@ import android.widget.EditText;
  */
 
 public class Join extends AppCompatActivity {
-    EditText UID, Name, ID,Password;
-    String str_UID,str_Name,str_ID,str_Password;
+    EditText UID, Name, ID,Password,Password2;
+  //  String str_UID,str_Name,str_ID,str_Password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class Join extends AppCompatActivity {
         Name = (EditText)findViewById(R.id.name);
         ID = (EditText)findViewById(R.id.id);
         Password = (EditText)findViewById(R.id.password);
+        Password2 = (EditText)findViewById(R.id.password2);
 
     }
 
@@ -30,10 +31,11 @@ public class Join extends AppCompatActivity {
         String str_Name = Name.getText().toString();
         String str_ID = ID.getText().toString();
         String str_Password = Password.getText().toString();
+        String str_Password2 = Password2.getText().toString();
         String type = "submit";
 
         BackgroundWork backgroundWork = new BackgroundWork((this));
-        backgroundWork.execute(type, str_UID, str_Name ,str_ID ,str_Password);
+        backgroundWork.execute(type, str_UID, str_Name ,str_ID ,str_Password,str_Password2);
 
     }
 

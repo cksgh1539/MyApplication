@@ -37,9 +37,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:orientation="vertical"
+           >
             <TextView
                 android:id="@+id/user_total"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/user_point"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

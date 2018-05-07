@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -16,6 +19,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +32,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,113 +45,66 @@ import java.util.ArrayList;
 
 public class user_chart extends AppCompatActivity {
 
-    private static String TAG = "Chanho";
-
-    String ID,PWD;
-    int total,deposit_total;
-
-    private int[] yData ;//= {20, 30, 40, 50, 60, 70};
-    private String[] xData = {"A","B"};
     PieChart pieChart;
+    int deposit,minus,point;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart);
-        Log.d(TAG,"onCreate: starting to creat chart");
-
-      //  yData = new int[]{20,30,40,50,60};
 
         Intent intent = getIntent();
-        ID = intent.getStringExtra("ID");
-        PWD = intent.getStringExtra("password");
-        total = intent.getIntExtra("total",0);
-        deposit_total = intent.getIntExtra("deposit_total",0);
 
-        yData = new int[]{total,deposit_total};
+        deposit = intent.getIntExtra("deposit_total",0);
+        minus = intent.getIntExtra("minus_total",0);
+        point = intent.getIntExtra("point_total",0);
 
-        pieChart = (PieChart)findViewById(R.id.pieChart);
+        pieChart = (PieChart) findViewById(R.id.pieChart);
 
-      //  pieChart.getDescription().setText("chanho");
-        pieChart.setRotationEnabled(false);
-       pieChart.setUsePercentValues(false);
-     //  pieChart.setHoleColor(Color.GREEN);
-        pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(50);
-        pieChart.setCenterText("한달 소비 차트");
-        pieChart.setCenterTextSize(10);
-        pieChart.setDrawEntryLabels(false);
-        //pieChart.setEntryLabelTextSize(20);
-        //More options just check out the documentation!
+     //   pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 10);
 
-        addDataSet();
+        pieChart.setDragDecelerationFrictionCoef(0.85f); // 부드럽게 돌아가는거?
 
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
+        pieChart.setEntryLabelTextSize(0f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setHoleRadius(40);
+       // pieChart.setTransparentCircleRadius(1f);
 
-                int pos1 = e.toString().indexOf("(sum): ");
-                String sales = e.toString().substring(pos1 + 7);
+        ArrayList<PieEntry> yValues =  new ArrayList<>();
+        ArrayList<String> xValues =  new ArrayList<>();
+if(deposit > 0)
+        yValues.add(new PieEntry(deposit, "입금"));
+if(minus > 0 )
+        yValues.add(new PieEntry(minus, "컨텐츠 사용"));
+if(point > 0)
+         yValues.add(new PieEntry(point, "포인트 환원"));
 
-                for(int i = 0; i < yData.length; i++){
-                    if(yData[i] == Float.parseFloat(sales)){
-                        pos1 = i;
-                        break;
-                    }
-                }
-                String employee = xData[pos1 + 1];
-              //  Toast.makeText(user_chart.this, "Employee " + employee + "\n" + "Sales: $" + sales + "K", Toast.LENGTH_LONG).show();
-            }
+       // yValues.add(new PieEntry(3000, "포인트 환원"));
+       // yValues.add(new PieEntry(34f, "C"));
+      //  yValues.add(new PieEntry(34f, "D"));
+      //  yValues.add(new PieEntry(34f, "E"));
 
-            @Override
-            public void onNothingSelected() {
+        Description description =  new Description();
+        description.setText("hello, chanho"); // 그래프 밑에 설명
+        description.setTextSize(12);
+        pieChart.setDescription(description);
 
-            }
-        });
-    }
+        pieChart.animateY(1500, Easing.EasingOption.EaseInOutCubic);
 
-    private void addDataSet() {
-        Log.d(TAG, "addDataSet started");
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        PieDataSet dataSet = new PieDataSet(yValues, "         금액이 0원인 경우 표시되지 않습니다");
 
-        for(int i = 0; i < yData.length; i++){
-            yEntrys.add(new PieEntry(yData[i] , i));
-        }
+        dataSet.setSliceSpace(3f); // 틈 간격
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        for(int i = 1; i < xData.length; i++){
-            xEntrys.add(xData[i]);
-        }
 
-        //create the data set
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Employee Sales");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.BLUE);
 
-        //add colors to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GRAY);
-        colors.add(Color.BLUE);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.MAGENTA);
-
-        pieDataSet.setColors(colors);
-
-        //add legend to chart
-        Legend legend = pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-
-        //create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
+        pieChart.setData(data);
     }
 }

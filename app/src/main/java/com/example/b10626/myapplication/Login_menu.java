@@ -41,11 +41,14 @@ import java.net.URLEncoder;
  */
 
 public class Login_menu extends AppCompatActivity {
-    TextView user_total,user_name;
+    TextView user_total,user_name,user_point;
     AlertDialog.Builder alertDialog;
     String ID,PWD;
+
     int deposit_total = 0;
-    String total="";
+    int minus_total = 0;
+    int point_total = 0;
+    String total="0";
     php task;
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
@@ -57,6 +60,7 @@ public class Login_menu extends AppCompatActivity {
 
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
+        user_point = (TextView)findViewById(R.id.user_point) ;
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
@@ -120,8 +124,9 @@ public class Login_menu extends AppCompatActivity {
 
             String name="";
             String deposit="";
-            //String name="";
-
+            String minus="";
+            String point="";
+            String ex_total="";
 
             try{
                 JSONObject root = new JSONObject(String.valueOf(str));
@@ -131,7 +136,13 @@ public class Login_menu extends AppCompatActivity {
                     total = jo.getString("total");
                     name = jo.getString("name");
                     deposit = jo.getString("deposit");
+                    minus = jo.getString("minus");
+                    point = jo.getString("ins_point"); //적립포인트
+                    ex_total = jo.getString("point_total"); //남은 포인트
+
+                    minus_total += Integer.parseInt(minus);
                     deposit_total += Integer.parseInt(deposit);
+                    point_total += Integer.parseInt(point); // 누적 포인트
                 }
 
             }catch(JSONException e){
@@ -139,7 +150,8 @@ public class Login_menu extends AppCompatActivity {
             }
 
             user_name.setText("안녕하세요" +name+" 님");
-            user_total.setText(name+"님의 총 적립금은 "+ total +"원 입니다.");
+            user_total.setText("사용가능 적립금 :  "+ total +" 원");
+            user_point.setText("사용가능 포인트 :  "+ex_total + " 점"); //남은 포인트
         }
     }
 
@@ -178,8 +190,9 @@ public class Login_menu extends AppCompatActivity {
         Intent intent = new Intent(this,user_chart.class);
         intent.putExtra("ID", username);
         intent.putExtra("password",password);
-        intent.putExtra("total",Integer.parseInt(total));
+        intent.putExtra("point_total",point_total);
         intent.putExtra("deposit_total",deposit_total);
+        intent.putExtra("minus_total",minus_total);
         startActivity(intent);
 
     }

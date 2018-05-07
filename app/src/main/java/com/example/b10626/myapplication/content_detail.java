@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -80,9 +82,12 @@ public class content_detail extends AppCompatActivity{
         check.setMessage("입력시 바로 기부됩니다!");
 
         final EditText ET = new EditText((content_detail.this));
+        ET.setInputType(InputType.TYPE_CLASS_NUMBER);
+        PasswordTransformationMethod pass_void = new PasswordTransformationMethod();
+        ET.setTransformationMethod(pass_void);
         check.setView(ET);
 
-        check.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        check.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.v("Chanho", "확인");
@@ -105,7 +110,7 @@ public class content_detail extends AppCompatActivity{
         });
 
 // 취소 버튼 설정
-        check.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        check.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.v("Chanho","취소");
