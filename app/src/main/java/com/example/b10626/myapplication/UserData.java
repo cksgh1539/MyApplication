@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,8 +27,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,11 +76,14 @@ public class UserData extends AppCompatActivity {
     ArrayList<userInfoItem> listItem = new ArrayList<>();
     SwipeRefreshLayout SRlayout;
     LinearLayout sel_layout,DB_layout;
+    RelativeLayout graph;
     String ID,PWD;
     Calendar cal =Calendar.getInstance();
     Calendar sel_cal1 = Calendar.getInstance();
     Calendar sel_cal2 = Calendar.getInstance();
+    PieChart pieChart;
 
+    int deposit,minus,point; //그래프 사용 변수
     int Item_key=0;
     int sel_key=0;
     int Year,Month,Day ,Num;
@@ -92,10 +105,17 @@ public class UserData extends AppCompatActivity {
         SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
         sel_layout = (LinearLayout) findViewById(R.id.sel_layout);
         DB_layout = (LinearLayout)findViewById(R.id.DB_layout);
-
+        graph = (RelativeLayout)findViewById(R.id.graph);
+        graph.setVisibility(View.GONE);
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
+
+        deposit = intent.getIntExtra("deposit_total",0);
+        minus = intent.getIntExtra("minus_total",0);
+        point = intent.getIntExtra("point_total",0);
+
+      //  Graph();
         task = new php();
 
         task.execute("http://113.198.80.147/login_done.php", ID, PWD);
@@ -262,16 +282,6 @@ public class UserData extends AppCompatActivity {
             sel_layout.setVisibility(view.GONE);
             sel_key = 0;
         }
-          //  Day1.setAlpha(1.0f);
-          //  Day2.setAlpha(1.0f);
-
-           // sel_day1.setAlpha(1.0f);
-          //  sel_day1.setText("달력");
-          // sel_day2.setAlpha(1.0f);
-         //  sel_day2.setText("달력");
-         //  search.setAlpha(1.0f);
-         //  search.setText("검색");
-           // Day1.setHeight(200);
     }
     public void term_Alpha(){
         Day1.setAlpha(0.0f);
@@ -358,6 +368,55 @@ public class UserData extends AppCompatActivity {
                      }
                    };
 
+    public void Graph(){
+      //  setContentView(R.layout.chart);
+
+        pieChart = (PieChart) findViewById(R.id.pieChart);
+
+        //   pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 10);
+
+        pieChart.setDragDecelerationFrictionCoef(0.85f); // 부드럽게 돌아가는거?
+
+        pieChart.setEntryLabelTextSize(0f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setHoleRadius(40);
+        // pieChart.setTransparentCircleRadius(1f);
+
+        ArrayList<PieEntry> yValues =  new ArrayList<>();
+        ArrayList<String> xValues =  new ArrayList<>();
+        if(deposit > 0)
+            yValues.add(new PieEntry(deposit, "입금"));
+        if(minus > 0 )
+            yValues.add(new PieEntry(minus, "컨텐츠 사용"));
+        if(point > 0)
+            yValues.add(new PieEntry(point, "포인트 환원"));
+
+
+        Description description =  new Description();
+        description.setText("hello, chanho"); // 그래프 밑에 설명
+        description.setTextSize(12);
+        pieChart.setDescription(description);
+
+        pieChart.animateY(1500, Easing.EasingOption.EaseInOutCubic);
+
+        PieDataSet dataSet = new PieDataSet(yValues, "         금액이 0원인 경우 표시되지 않습니다");
+
+        dataSet.setSliceSpace(3f); // 틈 간격
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.BLUE);
+
+        pieChart.setData(data);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -378,11 +437,11 @@ public class UserData extends AppCompatActivity {
                 //  return true;
                 break;
             case R.id.trade_detail :
-                DB_layout.setVisibility(View.VISIBLE);
+                graph.setVisibility(View.GONE);
                 break;
             case R.id.graph :
-              //  DB_layout.set
-                DB_layout.setVisibility(View.VISIBLE);
+                graph.setVisibility(View.VISIBLE);
+                Graph();
                 break;
 
             default:

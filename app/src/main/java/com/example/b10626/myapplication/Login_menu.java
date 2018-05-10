@@ -163,6 +163,9 @@ public class Login_menu extends AppCompatActivity {
         Intent intent = new Intent(this,UserData.class);
         intent.putExtra("ID", username);
         intent.putExtra("password",password);
+        intent.putExtra("point_total",point_total);
+        intent.putExtra("deposit_total",deposit_total);
+        intent.putExtra("minus_total",minus_total);
         startActivity(intent);
 
 
