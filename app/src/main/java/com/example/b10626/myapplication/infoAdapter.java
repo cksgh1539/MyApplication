@@ -19,11 +19,13 @@ public class infoAdapter extends BaseAdapter {
     private ArrayList<userInfoItem> fData;
     private Context fContext;
     private int fResource;
+    private int count;
 
     public infoAdapter(ArrayList<userInfoItem> data, Context context, int resource) {
         fData = data;
         fContext = context;
         fResource = resource;
+        this.count = fData.size();
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -34,16 +36,20 @@ public class infoAdapter extends BaseAdapter {
 
 
         TextView info = convertView.findViewById(R.id.info);
-        info.setText("date :" + fData.get(position).getData(0) + "\nname:" + fData.get(position).getData(1)
-                 + "\nmoney:" + fData.get(position).getData(2) + "\ntotal:" + fData.get(position).getData(3));
+        try{
+            info.setText("date :" + fData.get(position).getData(0) + "\nname:" + fData.get(position).getData(1)
+                    + "\nmoney:" + fData.get(position).getData(2) + "\ntotal:" + fData.get(position).getData(3));
+        }catch (IndexOutOfBoundsException ioe){
 
+        }
 
         return convertView;
 
     }
     @Override
     public int getCount() {
-        return fData.size();
+       // return fData.size();
+        return count;
     }
 
     @Override

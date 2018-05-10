@@ -5,4 +5,11 @@
     <item
         android:id="@+id/action_logout"
         android:title="Logout"/>
+    <item
+        android:id="@+id/trade_detail"
+        android:title="거래 내역"/>
+    <item
+        android:id="@+id/graph"
+        android:title="그래프"/>
+
 </menu>

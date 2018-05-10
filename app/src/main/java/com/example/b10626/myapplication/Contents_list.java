@@ -27,7 +27,7 @@ public class Contents_list extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_db);
+        setContentView(R.layout.contents_layout);
 
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
