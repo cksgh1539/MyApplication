@@ -16,31 +16,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textSize="15dp"
         android:id="@+id/date"/>
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="입금"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_blue_dark"
-        android:id="@+id/ins_money"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="출금"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_orange_dark"
-        android:id="@+id/sub_money"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginBottom="10dp"
+    android:id="@+id/content_name0"/>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="잔액"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:id="@+id/total"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="포인트 적립"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_dark"
         android:id="@+id/ins_point"/>
@@ -49,12 +48,14 @@
         android:layout_height="wrap_content"
         android:text="포인트 사용"
         android:textStyle="bold"
+        android:textSize="15dp"
         android:textColor="@android:color/holo_purple"
         android:id="@+id/sub_point"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="포인트 잔액"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:id="@+id/point_total"/>
 </LinearLayout>
@@ -68,40 +69,63 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="입금"
+            android:textSize="15dp"
             android:textStyle="bold"
-            android:id="@+id/content_name0"/>
+            android:textColor="@android:color/holo_blue_dark"
+            android:id="@+id/ins_money"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출금"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_orange_dark"
+            android:id="@+id/sub_money"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="20dp"
             android:textColor="@android:color/holo_blue_light"
             android:id="@+id/ins_money1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="20dp"
             android:textColor="@android:color/holo_orange_light"
             android:id="@+id/sub_money2"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="잔액 데이터"
+            android:textSize="15dp"
             android:textStyle="bold"
+
             android:id="@+id/total3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="포인트 적립 데이터"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@android:color/holo_green_dark"
             android:id="@+id/ins_point4"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="포인트 사용 데이터"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@android:color/holo_purple"
             android:id="@+id/sub_point5"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="포인트 잔액 데이터"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:id="@+id/point_total6"/>
 

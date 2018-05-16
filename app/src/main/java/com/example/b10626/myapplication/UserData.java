@@ -79,8 +79,8 @@ public class UserData extends AppCompatActivity {
     RelativeLayout graph;
     String ID,PWD;
     Calendar cal =Calendar.getInstance();
-    Calendar sel_cal1 = Calendar.getInstance();
-    Calendar sel_cal2 = Calendar.getInstance();
+    Calendar sel_cal1;
+    Calendar sel_cal2;
     PieChart pieChart;
 
     int deposit,minus,point; //그래프 사용 변수
@@ -132,7 +132,7 @@ public class UserData extends AppCompatActivity {
                             listItem.clear();
                             task = new php();
                             task.execute("http://113.198.80.147/login_done.php", ID, PWD);
-                            Toast.makeText(getApplicationContext(), "갱신 중입니다!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "초기 화면으로 돌아갑니다!", Toast.LENGTH_SHORT).show();
                             SRlayout.setRefreshing(false);
                         }
                     },1000);
@@ -213,11 +213,12 @@ public class UserData extends AppCompatActivity {
                     if (ChangeTime.compareTo(abc) < 0)
                         listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
                 }else if(Item_key == 4){
-                    Date Day1 = sel_cal1.getTime();
-                    Date Day2 = sel_cal2.getTime();
+                Date Day1 = sel_cal1.getTime();
+                Date Day2 = sel_cal2.getTime();
 
-                    if(Day1.compareTo(abc)<0 && Day2.compareTo(abc)>0)
-                        listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
+                if(Day1.compareTo(abc)<0 && Day2.compareTo(abc)>0) {
+                    listItem.add(new userInfoItem(date, name, ins_money, sub_money, total, ins_point, sub_point, point_total));
+                }
                 }
             }
         }catch(JSONException e){
@@ -229,7 +230,7 @@ public class UserData extends AppCompatActivity {
           listView.setAdapter(adapter);
           adapter.notifyDataSetChanged();
           listView.setDividerHeight(10);
-            Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(ChangeTime)+"리스트뷰 마지막", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(ChangeTime)+"리스트뷰 마지막", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -240,7 +241,7 @@ public class UserData extends AppCompatActivity {
         cal = Calendar.getInstance();
         cal.add(cal.DATE,-7);
         Date c = cal.getTime();
-        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(c)+"1주일", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(c), Toast.LENGTH_SHORT).show();
         listItem.clear();
         task = new php();
         task.execute("http://113.198.80.147/login_done.php", ID, PWD);
@@ -251,7 +252,7 @@ public class UserData extends AppCompatActivity {
         cal = Calendar.getInstance();
         cal.add(Calendar.MONTH,-1);
         Date a = cal.getTime();
-        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(a)+"한 달", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(a), Toast.LENGTH_SHORT).show();
         Item_key = 2;
         listItem.clear();
         task = new php();
@@ -263,34 +264,47 @@ public class UserData extends AppCompatActivity {
         cal = Calendar.getInstance();
         cal.add(Calendar.MONTH,-3);
         Date b = cal.getTime();
-        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(b)+"세 달", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(b), Toast.LENGTH_SHORT).show();
         Item_key = 3;
         listItem.clear();
         task = new php();
         task.execute("http://113.198.80.147/login_done.php", ID, PWD);
     }
 
+    //----------------------------------기간 선택 버튼 활성/비활성
     public void sel_term(View view){
         if(sel_key == 0) {
             sel_layout.setVisibility(view.VISIBLE);
             sel_key = 1;
+            sel_cal1 = null;
+            sel_cal2 = null;
         }else if(sel_key == 1){
             sel_layout.setVisibility(view.GONE);
             sel_key = 0;
+            Day1.setText(null);
+            Day2.setText(null);
+
         }
     }
 
-
+//-------------------------------------------검색 버튼
     public void search(View view){
-        cal = Calendar.getInstance();
+    /*    cal = Calendar.getInstance();
         cal.add(Calendar.MONTH,-3);
-        Date b = cal.getTime();
-        Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(b)+"세 달", Toast.LENGTH_SHORT).show();
-        Item_key = 4;
-        listItem.clear();
-        task = new php();
-        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+        Date b = cal.getTime();*/
+        if(sel_cal1 != null && sel_cal2 != null) {
+            Toast.makeText(getApplicationContext(), "검색중입니다!", Toast.LENGTH_SHORT).show();
+            Item_key = 4;
+            listItem.clear();
+            task = new php();
+            task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+            Log.v("chanho","sel_cal : "+sel_cal1+"  sel_cal2 : "+sel_cal2);
+        }else{
+            Toast.makeText(getApplicationContext(), "기간을 선택해 주세요!", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    //-----------------------------------------기간 선택 알고리즘
     public void sel_day1(View view){
         showCalender(1);
     }
@@ -308,7 +322,6 @@ public class UserData extends AppCompatActivity {
             Day = cal.get(Calendar.DAY_OF_MONTH);
             Num = i;
             new DatePickerDialog(UserData.this, mDateSetListener, Year,
-
                     Month, Day).show();
          }
         if(i == 2){
@@ -317,7 +330,6 @@ public class UserData extends AppCompatActivity {
             Day = cal.get(Calendar.DAY_OF_MONTH);
             Num = i;
             new DatePickerDialog(UserData.this, mDateSetListener, Year,
-
                     Month, Day).show();
           }
         }
@@ -336,6 +348,7 @@ public class UserData extends AppCompatActivity {
                     Day = dayOfMonth;
 
                  if(Num == 1) {
+                     sel_cal1 = Calendar.getInstance();
                        Day1.setText(String.format("%d/%d/%d", Year,
                          Month + 1, Day));
                        sel_cal1.set(Calendar.YEAR,Year);
@@ -346,6 +359,7 @@ public class UserData extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(z)+"", Toast.LENGTH_SHORT).show();
                     // Toast.makeText(getApplicationContext(), ""+cal, Toast.LENGTH_SHORT).show();
                      }else if(Num ==2){
+                     sel_cal2 = Calendar.getInstance();
                        Day2.setText(String.format("%d/%d/%d", Year,
                         Month + 1, Day));
                      sel_cal2.set(Calendar.YEAR,Year);

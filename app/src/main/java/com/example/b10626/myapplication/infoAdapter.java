@@ -43,7 +43,7 @@ public class infoAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) fContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(fResource, parent,false);
 
-            TextView info = convertView.findViewById(R.id.info);
+           // TextView info = convertView.findViewById(R.id.info);
             holder.date = convertView.findViewById(R.id.date);
             holder.content_name = convertView.findViewById(R.id.content_name0);
 
@@ -67,38 +67,46 @@ public class infoAdapter extends BaseAdapter {
         try{
             holder.date.setText( fData.get(position).getData(0));
             holder.content_name.setText(fData.get(position).getData(1));
+            holder. ins_money1.setText(fData.get(position).getData(2));
+            holder. sub_money2.setText(fData.get(position).getData(3));
+            holder. total3.setText(fData.get(position).getData(4));
+            holder.ins_point4.setText(fData.get(position).getData(5));
+            holder. sub_point5.setText(fData.get(position).getData(6));
+            holder.point_total6.setText(fData.get(position).getData(7));
 
             if(fData.get(position).getData(2).equals("0")){
-            //    holder.ins_money.setVisibility(convertView.GONE);
-             //   holder.ins_money1.setVisibility(convertView.GONE);
+                holder.ins_money.setVisibility(convertView.GONE);
+                holder.ins_money1.setVisibility(convertView.GONE);
             }else{
-                holder. ins_money1.setText(fData.get(position).getData(2));
+                holder.ins_money.setVisibility(convertView.VISIBLE);
+                holder.ins_money1.setVisibility(convertView.VISIBLE);
             }
 
             if(fData.get(position).getData(3).equals("0")){
-            //    holder. sub_money.setVisibility(convertView.GONE);
-            //    holder. sub_money2.setVisibility(convertView.GONE);
+                holder. sub_money.setVisibility(convertView.GONE);
+                holder. sub_money2.setVisibility(convertView.GONE);
             }else{
-                holder. sub_money2.setText(fData.get(position).getData(3));
+                holder. sub_money.setVisibility(convertView.VISIBLE);
+                holder. sub_money2.setVisibility(convertView.VISIBLE);
             }
 
-            holder. total3.setText(fData.get(position).getData(4));
-
             if(fData.get(position).getData(5).equals("0")){
-            //    holder. ins_point.setVisibility(convertView.GONE);
-           //     holder. ins_point4.setVisibility(convertView.GONE);
+                holder. ins_point.setVisibility(convertView.GONE);
+                holder. ins_point4.setVisibility(convertView.GONE);
             }else{
-                holder.ins_point4.setText(fData.get(position).getData(5));
+                holder. ins_point.setVisibility(convertView.VISIBLE);
+                holder. ins_point4.setVisibility(convertView.VISIBLE);
+
             }
 
             if(fData.get(position).getData(6).equals("0")){
-            //    holder. sub_point.setVisibility(convertView.GONE);
-             //   holder. sub_point5.setVisibility(convertView.GONE);
+                holder. sub_point.setVisibility(convertView.GONE);
+                holder. sub_point5.setVisibility(convertView.GONE);
             }else{
-                holder. sub_point5.setText(fData.get(position).getData(6));
-            }
+                holder. sub_point.setVisibility(convertView.VISIBLE);
+                holder. sub_point5.setVisibility(convertView.VISIBLE);
 
-            holder.point_total6.setText(fData.get(position).getData(7));
+            }
 
         /*    info.setText("날짜 :" + fData.get(position).getData(0) + "\n이름:" + fData.get(position).getData(1)
                     + "\n입금:" + fData.get(position).getData(2) + "\n출금:" + fData.get(position).getData(3)
