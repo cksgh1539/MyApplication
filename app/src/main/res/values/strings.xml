@@ -3,5 +3,7 @@
     <string name="trade_detail">상세 거래 내역</string>
     <string name="graph">그래프</string>
     <string name="Contents">기부 상품 보기</string>
-
+    <string name="Login">메인</string>
+    <string name="content_detail">상품 설명</string>
+    <string name="join">회원가입</string>
 </resources>

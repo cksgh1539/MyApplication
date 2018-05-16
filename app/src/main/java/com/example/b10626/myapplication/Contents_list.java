@@ -37,6 +37,7 @@ public class Contents_list extends AppCompatActivity{
         ArrayList<MyItem> data = new ArrayList<MyItem>();
         data.add(new MyItem(R.drawable.content1, "하루 식사", "1000"));
         data.add(new MyItem(R.drawable.content2, "일주일 식사", "2000"));
+        data.add(new MyItem(R.drawable.content3, "한달 식사", "5000"));
 
 
         adapter = new Contents_Adapter(this, R.layout.contests_list, data);

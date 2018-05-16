@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class Login_menu extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_menu);
 
         user_total = (TextView)findViewById(R.id.user_total);
@@ -149,7 +151,7 @@ public class Login_menu extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            user_name.setText("안녕하세요" +name+" 님");
+            user_name.setText("안녕하세요 \n" +name+" 님");
             user_total.setText("사용가능 적립금 :  "+ total +" 원");
             user_point.setText("사용가능 포인트 :  "+ex_total + " 점"); //남은 포인트
         }
@@ -185,7 +187,7 @@ public class Login_menu extends AppCompatActivity {
 
     }
 
-    public void graph(View view) { //------------------------그래프
+    /*public void graph(View view) { //------------------------그래프
         String username = ID;
         String password = PWD;
        // String type = "trade_detail";
@@ -198,7 +200,7 @@ public class Login_menu extends AppCompatActivity {
         intent.putExtra("minus_total",minus_total);
         startActivity(intent);
 
-    }
+    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //------------------------------로그아웃 옵션메뉴
         MenuInflater inflater = getMenuInflater();

@@ -8,7 +8,8 @@ public class Content_showlist {
 
     public static final String[] CONTENTS =
             {
-                    "하루 식사가능",
-                    "일주일 식사 가능"
+                    "하루 식사 가능",
+                    "일주일 식사 가능",
+                    "한 달 식사 기부"
             };
 }

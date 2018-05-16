@@ -97,7 +97,7 @@ public class content_detail extends AppCompatActivity{
                 String type = "Donation";
 
                 BackgroundWork backgroundWork = new BackgroundWork((content_detail.this));
-                backgroundWork.execute(type, ID,First_PWD, Second_PWD, Price);
+                backgroundWork.execute(type, ID,First_PWD, Second_PWD, Price,Name);
 /*
                 Log.v("Chanho", Second_PWD);
                 Intent intent2 = new Intent(content_detail.this,Login_menu.class);

@@ -68,12 +68,6 @@
             android:onClick="Contents_list"
             android:text="@string/Contents" />
 
-        <Button
-            android:id="@+id/graph"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:onClick="graph"
-            android:text="@string/graph" />
 
     </LinearLayout>
 

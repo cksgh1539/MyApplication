@@ -20,12 +20,18 @@
         </activity>
 
 
-        <activity android:name=".Join"></activity>
-        <activity android:name=".Login_menu"></activity>
-        <activity android:name=".UserData"></activity>
-        <activity android:name=".user_chart"></activity>
-        <activity android:name=".Contents_list"></activity>
-        <activity android:name=".content_detail"></activity>
+        <activity android:name=".Join"
+            android:label="@string/join"></activity>
+        <activity android:name=".Login_menu"
+            android:label="@string/Login"></activity>
+        <activity android:name=".UserData"
+            android:label="@string/trade_detail"> </activity>
+        <activity android:name=".user_chart"
+            android:label="@string/graph"></activity>
+        <activity android:name=".Contents_list"
+            android:label="@string/Contents"></activity>
+        <activity android:name=".content_detail"
+            android:label="@string/content_detail"></activity>
     </application>
 
 </manifest>

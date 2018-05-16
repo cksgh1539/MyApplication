@@ -185,7 +185,7 @@ public class UserData extends AppCompatActivity {
         protected void onPostExecute(String str) {
 
         String date = "";
-        String uid,name,ins,money,total;
+        String name,ins_money,sub_money,total,ins_point,sub_point,point_total;
 
         Date ChangeTime = cal.getTime();
 
@@ -196,25 +196,28 @@ public class UserData extends AppCompatActivity {
             for(int i=ja.length()-1; i>0; i--) {
                 JSONObject jo = ja.getJSONObject(i);
                 date = jo.getString("date");
-                name = jo.getString("name");
-              //  ins = jo.getString("ins");
-                money = jo.getString("money");
+                name = jo.getString("content_name");
+                ins_money = jo.getString("money");
+                sub_money = jo.getString("minus");
+                ins_point = jo.getString("ins_point");
+                sub_point = jo.getString("sub_point");
+                point_total = jo.getString("point_total");
                 total = jo.getString("total");
 
                 SimpleDateFormat transdate = new SimpleDateFormat("yyyy-MM-dd");
                 Date abc = transdate.parse(date);
 
                 if (i > ja.length() -6 && Item_key == 0) {
-                    listItem.add(new userInfoItem(date, name, money, total));
+                    listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
                 }else if (Item_key == 1 || Item_key == 2 || Item_key == 3) {
                     if (ChangeTime.compareTo(abc) < 0)
-                        listItem.add(new userInfoItem(date, name, money, total));
+                        listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
                 }else if(Item_key == 4){
                     Date Day1 = sel_cal1.getTime();
                     Date Day2 = sel_cal2.getTime();
 
                     if(Day1.compareTo(abc)<0 && Day2.compareTo(abc)>0)
-                        listItem.add(new userInfoItem(date, name, money, total));
+                        listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
                 }
             }
         }catch(JSONException e){
@@ -229,13 +232,6 @@ public class UserData extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(ChangeTime)+"리스트뷰 마지막", Toast.LENGTH_SHORT).show();
 
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     public void week(View view){
@@ -283,14 +279,7 @@ public class UserData extends AppCompatActivity {
             sel_key = 0;
         }
     }
-    public void term_Alpha(){
-        Day1.setAlpha(0.0f);
-        Day2.setAlpha(0.0f);
-        sel_day1.setAlpha(0.0f);
-        sel_day2.setAlpha(0.0f);
-        search.setAlpha(0.0f);
 
-    }
 
     public void search(View view){
         cal = Calendar.getInstance();
@@ -418,24 +407,16 @@ public class UserData extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu2, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.action_logout:
-                alertDialog = new AlertDialog.Builder(this);
-                alertDialog.setMessage("로그아웃을 하시겠습니까??");
-                alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
-                });
-                alertDialog.setNegativeButton("취소",null);
-                alertDialog.show();
-                //  return true;
-                break;
             case R.id.trade_detail :
                 graph.setVisibility(View.GONE);
                 break;
