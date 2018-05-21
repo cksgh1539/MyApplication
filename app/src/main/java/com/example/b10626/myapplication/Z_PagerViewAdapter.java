@@ -13,19 +13,36 @@ import android.widget.LinearLayout;
  * Created by hp on 2018-05-21.
  */
 
-public class PagerViewAdapter extends PagerAdapter {
+public class Z_PagerViewAdapter extends PagerAdapter {
 
-    private int[] images = {R.drawable.content1,R.drawable.content2,R.drawable.content3};
+    private int[] images1 = {R.drawable.unicef,R.drawable.goodneighbors,R.drawable.world_vision_logo};
+    private int[] images2 = {R.drawable.goodneighbors,R.drawable.world_vision_logo,R.drawable.unicef};
+    private int[] images3 = {R.drawable.world_vision_logo,R.drawable.unicef,R.drawable.goodneighbors};
     private LayoutInflater inflater;
     private Context context;
+    private int OrganNum;
 
-    public PagerViewAdapter(Context context){
+    public Z_PagerViewAdapter(Context context, int num){
         this.context = context;
+        OrganNum = num;
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        int imageNum=0;
+        switch (OrganNum){
+            case 0:
+                imageNum = images1.length;
+                break;
+            case 1:
+                imageNum=images2.length;
+                break;
+            case 2:
+                imageNum= images3.length;
+                break;
+        }
+        return imageNum;
+
     }
 
     @Override
@@ -37,7 +54,13 @@ public class PagerViewAdapter extends PagerAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.viewpager, container, false);
         ImageView imageView = (ImageView)v.findViewById(R.id.pagerImage);
-        imageView.setImageResource(images[position]);
+        if (OrganNum == 0){
+            imageView.setImageResource(images1[position]);
+        }else if(OrganNum == 1){
+            imageView.setImageResource(images2[position]);
+        }else if(OrganNum == 2){
+            imageView.setImageResource(images3[position]);
+        }
         container.addView(v);
         return v;
     }

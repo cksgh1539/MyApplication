@@ -1,7 +1,6 @@
 package com.example.b10626.myapplication;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,9 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +43,7 @@ public class Login_menu extends AppCompatActivity {
     AlertDialog.Builder alertDialog;
     String ID,PWD;
 
-    PagerViewAdapter adapter;
+    Z_PagerViewAdapter adapter;
     ViewPager viewPager;
 
     int deposit_total = 0;
@@ -65,9 +61,11 @@ public class Login_menu extends AppCompatActivity {
        // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_menu);
 
+
         viewPager = (ViewPager)findViewById(R.id.view);
-        adapter = new PagerViewAdapter(this);
+        adapter = new Z_PagerViewAdapter(this);
         viewPager.setAdapter(adapter);
+
 
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
