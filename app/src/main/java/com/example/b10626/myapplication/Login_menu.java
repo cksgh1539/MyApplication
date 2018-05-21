@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -46,6 +47,9 @@ public class Login_menu extends AppCompatActivity {
     AlertDialog.Builder alertDialog;
     String ID,PWD;
 
+    PagerViewAdapter adapter;
+    ViewPager viewPager;
+
     int deposit_total = 0;
     int minus_total = 0;
     int point_total = 0;
@@ -54,11 +58,16 @@ public class Login_menu extends AppCompatActivity {
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
     SwipeRefreshLayout SRlayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_menu);
+
+        viewPager = (ViewPager)findViewById(R.id.view);
+        adapter = new PagerViewAdapter(this);
+        viewPager.setAdapter(adapter);
 
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);

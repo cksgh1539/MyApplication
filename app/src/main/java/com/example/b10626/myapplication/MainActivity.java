@@ -1,6 +1,7 @@
 package com.example.b10626.myapplication;
 
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         usernameEt = (EditText) findViewById(R.id.userID);
         PasswordEt = (EditText) findViewById(R.id.userPW);
+
+
 
         // Intent intent = new Intent(this,Login_menu.class);
         //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

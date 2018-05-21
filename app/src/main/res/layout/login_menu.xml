@@ -14,15 +14,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="253dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="165dp"></android.support.v4.view.ViewPager>
+
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="311dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="bottom"
             android:textSize="40dp" />
 
 
