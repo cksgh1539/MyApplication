@@ -23,14 +23,14 @@
         <TextView
             android:id="@+id/Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="37dp"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/Comment"
             android:layout_width="match_parent"
-            android:layout_height="123dp"
+            android:layout_height="200dp"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp" />
@@ -39,7 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
 
             <TextView
                 android:id="@+id/Price"

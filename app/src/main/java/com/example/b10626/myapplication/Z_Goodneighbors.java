@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Z_Goodneighbors extends AppCompatActivity {
     Contents_Adapter adapter;
     ListView listView;
-    int mCurCheckPosition = -1;
+    int mCurCheckPosition = 0;
     String ID,PWD;
     Z_PagerViewAdapter Pageadapter;
     ViewPager viewPager;
@@ -37,17 +37,27 @@ public class Z_Goodneighbors extends AppCompatActivity {
         mCurCheckPosition = intent.getIntExtra("Position",0);
 
         viewPager = (ViewPager)findViewById(R.id.view);
-        Pageadapter = new Z_PagerViewAdapter(this,mCurCheckPosition);
+        Pageadapter = new Z_PagerViewAdapter(this,mCurCheckPosition+1);
         viewPager.setAdapter(Pageadapter);
 
         //데이터 준비
         ArrayList<MyItem> data = new ArrayList<MyItem>();
-        data.add(new MyItem(R.drawable.content1, "난민", "보기"));
-        data.add(new MyItem(R.drawable.content2, "아동", "보기"));
-        data.add(new MyItem(R.drawable.content3, "에이즈", "보기"));
+        if(mCurCheckPosition == 0) {
+            data.add(new MyItem(R.drawable.item1_1, "국제보건사업", "보기"));
+            data.add(new MyItem(R.drawable.item1_22, "국제에이즈예방사업", "보기"));
+            data.add(new MyItem(R.drawable.item1_33, "국제식수사업", "보기"));
+        }else if(mCurCheckPosition == 1){
+            data.add(new MyItem(R.drawable.item3_1, "국내아동지원", "보기"));
+            data.add(new MyItem(R.drawable.item3_2, "북한아동지원사업", "보기"));
+            data.add(new MyItem(R.drawable.item3_3, "해외아동교육지원", "보기"));
+        }else if(mCurCheckPosition == 2){
+            data.add(new MyItem(R.drawable.item2_1, "국내위기가정아동지원", "보기"));
+            data.add(new MyItem(R.drawable.item2_2, "대북농업사업", "보기"));
+            data.add(new MyItem(R.drawable.item2_3, "국제식량위기대응사업", "보기"));
+        }
 
 
-        adapter = new Contents_Adapter(this, R.layout.contests_list, data);
+        adapter = new Contents_Adapter(this, R.layout.contents_list, data);
 
         //어댑터 연결
         listView = (ListView) findViewById(R.id.listView);
@@ -70,6 +80,7 @@ public class Z_Goodneighbors extends AppCompatActivity {
 
                 intent.putExtra("content_image",byteArray);
                 intent.putExtra("content_name",name);
+                intent.putExtra("content_position",position);
                 intent.putExtra("organ_position",mCurCheckPosition);
                 intent.putExtra("ID",ID);
                 intent.putExtra("first_PWD",PWD);

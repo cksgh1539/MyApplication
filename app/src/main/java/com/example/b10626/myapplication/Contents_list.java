@@ -1,3 +1,4 @@
+/*
 package com.example.b10626.myapplication;
 
 import android.content.Intent;
@@ -13,9 +14,11 @@ import android.widget.ListView;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+*/
 /**
  * Created by hp on 2018-05-01.
- */
+ *//*
+
 
 public class Contents_list extends AppCompatActivity{
     Contents_Adapter adapter;
@@ -40,7 +43,7 @@ public class Contents_list extends AppCompatActivity{
         data.add(new MyItem(R.drawable.content3, "한달 식사", "5000"));
 
 
-        adapter = new Contents_Adapter(this, R.layout.contests_list, data);
+        adapter = new Contents_Adapter(this, R.layout.contents_list, data);
 
         //어댑터 연결
         listView = (ListView) findViewById(R.id.listView);
@@ -74,3 +77,4 @@ public class Contents_list extends AppCompatActivity{
 
     }
 }
+*/

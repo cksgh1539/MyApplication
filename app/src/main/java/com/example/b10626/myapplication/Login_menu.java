@@ -11,6 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,10 +64,26 @@ public class Login_menu extends AppCompatActivity {
 
 
         viewPager = (ViewPager)findViewById(R.id.view);
-        adapter = new Z_PagerViewAdapter(this,2);
+        adapter = new Z_PagerViewAdapter(this,0);
         viewPager.setAdapter(adapter);
 
+       viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+           @Override
+           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+           }
+
+           @Override
+           public void onPageSelected(int position) {
+               Log.i("chanho","position : "+position);
+
+           }
+
+           @Override
+           public void onPageScrollStateChanged(int state) {
+
+           }
+       });
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
         user_point = (TextView)findViewById(R.id.user_point) ;

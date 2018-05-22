@@ -1,8 +1,6 @@
 package com.example.b10626.myapplication;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -35,12 +32,12 @@ public class Z_Organlist extends AppCompatActivity {
 
         //데이터 준비
         ArrayList<MyItem> data = new ArrayList<MyItem>();
-        data.add(new MyItem(R.drawable.unicef, "UNICEF", "자세히 보기"));
-        data.add(new MyItem(R.drawable.goodneighbors, "Good Neighbors", "자세히 보기"));
+        data.add(new MyItem(R.drawable.unicef_logo, "UNICEF", "자세히 보기"));
+        data.add(new MyItem(R.drawable.goonebor_logo, "Good Neighbors", "자세히 보기"));
         data.add(new MyItem(R.drawable.world_vision_logo, "World vision", "자세히 보기"));
 
 
-        adapter = new Contents_Adapter(this, R.layout.contests_list, data);
+        adapter = new Contents_Adapter(this, R.layout.contents_list, data);
 
         //어댑터 연결
         listView = (ListView) findViewById(R.id.organlist);

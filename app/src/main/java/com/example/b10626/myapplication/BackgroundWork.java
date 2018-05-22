@@ -122,9 +122,9 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             try {
                 user_id = voids[1];
                 user_password = voids[2];
-                String second_pwd = voids[3];
-                String  price = voids[4];
-                String content_name = voids[5];
+              //  String second_pwd = voids[3];
+                String  price = voids[3];
+                String content_name = voids[4];
                 int point = Integer.parseInt(price);
                 String Point = String.valueOf(point/10);
 
@@ -137,7 +137,6 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 String post_data = URLEncoder.encode("first","UTF-8")+"="+URLEncoder.encode(user_password,"UTF-8")+"&"+
-                        URLEncoder.encode("second","UTF-8")+"="+URLEncoder.encode(second_pwd,"UTF-8")+"&"+
                         URLEncoder.encode("price","UTF-8")+"="+URLEncoder.encode(price,"UTF-8")+"&"+
                         URLEncoder.encode("ID","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8")+"&"+
                         URLEncoder.encode("Point","UTF-8")+"="+URLEncoder.encode(Point,"UTF-8")+"&"+

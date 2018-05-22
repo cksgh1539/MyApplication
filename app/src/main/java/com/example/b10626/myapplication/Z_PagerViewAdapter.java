@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 
 public class Z_PagerViewAdapter extends PagerAdapter {
 
-    private int[] images1 = {R.drawable.unicef,R.drawable.goodneighbors,R.drawable.world_vision_logo};
-    private int[] images2 = {R.drawable.goodneighbors,R.drawable.world_vision_logo,R.drawable.unicef};
-    private int[] images3 = {R.drawable.world_vision_logo,R.drawable.unicef,R.drawable.goodneighbors};
+    private int[] images0 = {R.drawable.uni3,R.drawable.good1,R.drawable.wor2};
+    private int[] images1 = {R.drawable.unicef5,R.drawable.uni1,R.drawable.uni2};
+    private int[] images2 = {R.drawable.goodneighbors5,R.drawable.good2,R.drawable.good4};
+    private int[] images3 = {R.drawable.wor1,R.drawable.wor3,R.drawable.wor2};
+
     private LayoutInflater inflater;
     private Context context;
     private int OrganNum;
@@ -32,12 +34,15 @@ public class Z_PagerViewAdapter extends PagerAdapter {
         int imageNum=0;
         switch (OrganNum){
             case 0:
-                imageNum = images1.length;
+                imageNum = images0.length;
                 break;
             case 1:
-                imageNum=images2.length;
+                imageNum=images1.length;
                 break;
             case 2:
+                imageNum= images2.length;
+                break;
+            case 3:
                 imageNum= images3.length;
                 break;
         }
@@ -55,12 +60,15 @@ public class Z_PagerViewAdapter extends PagerAdapter {
         View v = inflater.inflate(R.layout.viewpager, container, false);
         ImageView imageView = (ImageView)v.findViewById(R.id.pagerImage);
         if (OrganNum == 0){
-            imageView.setImageResource(images1[position]);
+            imageView.setImageResource(images0[position]);
         }else if(OrganNum == 1){
-            imageView.setImageResource(images2[position]);
+            imageView.setImageResource(images1[position]);
         }else if(OrganNum == 2){
+            imageView.setImageResource(images2[position]);
+        }else if(OrganNum == 3){
             imageView.setImageResource(images3[position]);
         }
+
         container.addView(v);
         return v;
     }

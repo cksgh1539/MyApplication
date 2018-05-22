@@ -39,8 +39,8 @@ import java.net.URLEncoder;
  */
 
 public class content_detail extends AppCompatActivity{
-    String Name, Price,First_PWD,ID,price_button;
-    int Position;
+    String Name,First_PWD,ID,price_button;
+    int Position,OrganPosition;
     Bitmap Image;
 
     TextView Content_Name, Content_Price, Content_Comment;
@@ -67,15 +67,16 @@ public class content_detail extends AppCompatActivity{
         Image = BitmapFactory.decodeByteArray(arr, 0, arr.length);
 
         Position = intent.getIntExtra("content_position", 0);
+        OrganPosition = intent.getIntExtra("organ_position",0);
+
         Name = intent.getStringExtra("content_name");
-        Price = intent.getStringExtra("content_price");
         First_PWD = intent.getStringExtra("first_PWD");
         ID = intent.getStringExtra("ID");
 
         Content_Image.setImageBitmap(Image);
         Content_Name.setText(Name);
     //    Content_Price.setText(Price);
-        Content_Comment.setText(Content_showlist.CONTENTS[Position]);
+        Content_Comment.setText(Content_showlist.CONTENTS[OrganPosition][Position]);
 
        // task = new php();
       //  task.execute("http://113.198.80.147/login_menu.php");
@@ -92,7 +93,7 @@ public class content_detail extends AppCompatActivity{
         }
         AlertDialog.Builder check = new AlertDialog.Builder((content_detail.this));
 
-        check.setTitle("2차비밀번호입력");
+        check.setTitle("비밀번호입력");
         check.setMessage("입력시 바로 기부됩니다!");
 
         final EditText ET = new EditText((content_detail.this));
@@ -111,7 +112,7 @@ public class content_detail extends AppCompatActivity{
                 String type = "Donation";
 
                 BackgroundWork backgroundWork = new BackgroundWork((content_detail.this));
-                backgroundWork.execute(type, ID,First_PWD, Second_PWD, price_button,Name);
+                backgroundWork.execute(type, ID,First_PWD, price_button,Name);
 /*
                 Log.v("Chanho", Second_PWD);
                 Intent intent2 = new Intent(content_detail.this,Login_menu.class);
