@@ -35,6 +35,7 @@ public class Z_Goodneighbors extends AppCompatActivity {
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("first_PWD");
         mCurCheckPosition = intent.getIntExtra("Position",0);
+
         viewPager = (ViewPager)findViewById(R.id.view);
         Pageadapter = new Z_PagerViewAdapter(this,mCurCheckPosition);
         viewPager.setAdapter(Pageadapter);
@@ -69,7 +70,7 @@ public class Z_Goodneighbors extends AppCompatActivity {
 
                 intent.putExtra("content_image",byteArray);
                 intent.putExtra("content_name",name);
-                intent.putExtra("content_position",position);
+                intent.putExtra("organ_position",mCurCheckPosition);
                 intent.putExtra("ID",ID);
                 intent.putExtra("first_PWD",PWD);
 

@@ -37,6 +37,8 @@
             android:label="@string/content_detail"></activity>
         <activity android:name=".Z_Organlist"
             android:label="@string/content_detail"></activity>
+        <activity android:name=".Z_Goodneighbors"
+            android:label="@string/content_detail"></activity>
     </application>
 
 </manifest>

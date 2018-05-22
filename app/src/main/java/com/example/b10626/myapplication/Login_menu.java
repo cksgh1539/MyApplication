@@ -63,7 +63,7 @@ public class Login_menu extends AppCompatActivity {
 
 
         viewPager = (ViewPager)findViewById(R.id.view);
-        adapter = new Z_PagerViewAdapter(this);
+        adapter = new Z_PagerViewAdapter(this,2);
         viewPager.setAdapter(adapter);
 
 
@@ -77,7 +77,7 @@ public class Login_menu extends AppCompatActivity {
         task = new php();
         task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
 
-        SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
+     /*   SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
         SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -85,7 +85,7 @@ public class Login_menu extends AppCompatActivity {
                 task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
                 SRlayout.setRefreshing(false);
             }
-        });
+        });*/
     }
 
     private class php extends AsyncTask<String, Void, String> { //---------------로그인 할 때 받은 아이디 , 패스워드 php에서 비교
@@ -187,7 +187,7 @@ public class Login_menu extends AppCompatActivity {
         String password = PWD;
         // String type = "trade_detail";
 
-        Intent intent = new Intent(this,Contents_list.class);
+        Intent intent = new Intent(this,Z_Organlist.class);
         intent.putExtra("ID", username);
         intent.putExtra("password",password);
         startActivity(intent);

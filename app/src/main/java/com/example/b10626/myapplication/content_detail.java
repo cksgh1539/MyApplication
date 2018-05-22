@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -38,12 +39,13 @@ import java.net.URLEncoder;
  */
 
 public class content_detail extends AppCompatActivity{
-    String Name, Price,First_PWD,ID;
+    String Name, Price,First_PWD,ID,price_button;
     int Position;
     Bitmap Image;
 
     TextView Content_Name, Content_Price, Content_Comment;
     ImageView Content_Image;
+    RadioButton RB1,RB2,RB3;
    // php task;
 
     @Override
@@ -55,6 +57,10 @@ public class content_detail extends AppCompatActivity{
         Content_Name = (TextView) findViewById(R.id.Name);
         Content_Price = (TextView) findViewById(R.id.Price);
         Content_Comment = (TextView) findViewById(R.id.Comment);
+
+        RB1 = (RadioButton)findViewById(R.id.radio1);
+        RB2 = (RadioButton)findViewById(R.id.radio2);
+        RB3 = (RadioButton)findViewById(R.id.radio3);
 
         Intent intent = getIntent();
         byte[] arr = getIntent().getByteArrayExtra("content_image");
@@ -68,7 +74,7 @@ public class content_detail extends AppCompatActivity{
 
         Content_Image.setImageBitmap(Image);
         Content_Name.setText(Name);
-        Content_Price.setText(Price);
+    //    Content_Price.setText(Price);
         Content_Comment.setText(Content_showlist.CONTENTS[Position]);
 
        // task = new php();
@@ -76,6 +82,14 @@ public class content_detail extends AppCompatActivity{
     }
 
     public void donation(View view){
+        price_button = "";
+        if(RB1.isChecked() == true){
+            price_button = "1000";
+        }else if(RB2.isChecked() == true){
+            price_button = "2000";
+        }else if(RB3.isChecked() == true){
+            price_button = "3000";
+        }
         AlertDialog.Builder check = new AlertDialog.Builder((content_detail.this));
 
         check.setTitle("2차비밀번호입력");
@@ -97,7 +111,7 @@ public class content_detail extends AppCompatActivity{
                 String type = "Donation";
 
                 BackgroundWork backgroundWork = new BackgroundWork((content_detail.this));
-                backgroundWork.execute(type, ID,First_PWD, Second_PWD, Price,Name);
+                backgroundWork.execute(type, ID,First_PWD, Second_PWD, price_button,Name);
 /*
                 Log.v("Chanho", Second_PWD);
                 Intent intent2 = new Intent(content_detail.this,Login_menu.class);

@@ -43,7 +43,7 @@ public class Z_Organlist extends AppCompatActivity {
         adapter = new Contents_Adapter(this, R.layout.contests_list, data);
 
         //어댑터 연결
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.organlist);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class Z_Organlist extends AppCompatActivity {
 
                 intent.putExtra("ID",ID);
                 intent.putExtra("first_PWD",PWD);
-                intent.putExtra("Postion",position);
+                intent.putExtra("Position",position);
 
                 startActivity(intent);
             }

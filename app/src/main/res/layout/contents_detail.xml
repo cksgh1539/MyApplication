@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/Image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="164dp"
             android:layout_marginTop="20dp"
             android:padding="8dp"
             android:scaleType="centerInside" />
@@ -23,37 +23,73 @@
         <TextView
             android:id="@+id/Name"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/Price"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/Comment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="123dp"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@android:color/holo_red_light"
             android:textSize="20sp" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="156dp"
-            android:gravity="bottom">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="기부 금액"
+                android:textSize="20sp" />
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000원"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000원"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3000원"
+                android:textSize="20sp" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="donation"
-                android:onClick="donation"/>
-
+                android:layout_gravity="bottom"
+                android:onClick="donation"
+                android:text="donation" />
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
 
+    </LinearLayout>
+
+</LinearLayout>
