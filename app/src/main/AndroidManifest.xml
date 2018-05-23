@@ -5,12 +5,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+
         <activity android:name=".Splash"
             android:theme="@style/Splash">
             <intent-filter>
@@ -22,7 +22,8 @@
 
 
         <activity android:name=".MainActivity"
-            android:label="@string/join"></activity>
+            android:theme="@style/AppTheme"
+            android:label="@string/Before_Login"></activity>
         <activity android:name=".Join"
             android:label="@string/join"></activity>
         <activity android:name=".Login_menu"
@@ -31,14 +32,12 @@
             android:label="@string/trade_detail"> </activity>
         <activity android:name=".user_chart"
             android:label="@string/graph"></activity>
-        <activity android:name=".Contents_list"
-            android:label="@string/Contents"></activity>
         <activity android:name=".content_detail"
             android:label="@string/content_detail"></activity>
         <activity android:name=".Z_Organlist"
-            android:label="@string/content_detail"></activity>
+            android:label="@string/Organ_list"></activity>
         <activity android:name=".Z_Goodneighbors"
-            android:label="@string/content_detail"></activity>
+            android:label="@string/Organ_Contents"></activity>
     </application>
 
 </manifest>

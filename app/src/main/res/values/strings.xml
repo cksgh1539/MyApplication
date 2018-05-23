@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Drop The Bit</string>
-    <string name="trade_detail">상세 거래 내역</string>
+    <string name="trade_detail">상세 내역</string>
     <string name="graph">그래프</string>
-    <string name="Contents">기부 상품 보기</string>
+    <string name="Organ_Contents">후원 목록</string>
+    <string name="Organ_list">기부 단체 리스트</string>
     <string name="Login">메인</string>
-    <string name="content_detail">상품 설명</string>
+    <string name="Before_Login">로그인</string>
+    <string name="content_detail">선택 후원 설명</string>
     <string name="join">회원가입</string>
 </resources>

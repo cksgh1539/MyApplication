@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -89,7 +90,7 @@ public class UserData extends AppCompatActivity {
     int Year,Month,Day ,Num;
 
     TextView Day1,Day2;
-    Button sel_day1,sel_day2,search;
+    ImageButton sel_day1,sel_day2,search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,9 +99,9 @@ public class UserData extends AppCompatActivity {
 
         Day1 = (TextView)findViewById(R.id.day1);
         Day2 = (TextView)findViewById(R.id.day2);
-        sel_day1 = (Button)findViewById(R.id.sel_day1);
-        sel_day2 = (Button)findViewById(R.id.sel_day2);
-        search = (Button)findViewById(R.id.search);
+        sel_day1 = (ImageButton)findViewById(R.id.sel_day1);
+        sel_day2 = (ImageButton)findViewById(R.id.sel_day2);
+        search = (ImageButton)findViewById(R.id.search);
         listView = (ListView) findViewById(R.id.listView);
         SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
         sel_layout = (LinearLayout) findViewById(R.id.sel_layout);
@@ -433,9 +434,11 @@ public class UserData extends AppCompatActivity {
 
             case R.id.trade_detail :
                 graph.setVisibility(View.GONE);
+                setTitle("상세 내역");
                 break;
             case R.id.graph :
                 graph.setVisibility(View.VISIBLE);
+                setTitle("내역 그래프");
                 Graph();
                 break;
 

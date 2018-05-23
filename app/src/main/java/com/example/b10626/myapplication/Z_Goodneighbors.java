@@ -43,14 +43,17 @@ public class Z_Goodneighbors extends AppCompatActivity {
         //데이터 준비
         ArrayList<MyItem> data = new ArrayList<MyItem>();
         if(mCurCheckPosition == 0) {
+            setTitle("Unicef");
             data.add(new MyItem(R.drawable.item1_1, "국제보건사업", "보기"));
             data.add(new MyItem(R.drawable.item1_22, "국제에이즈예방사업", "보기"));
             data.add(new MyItem(R.drawable.item1_33, "국제식수사업", "보기"));
         }else if(mCurCheckPosition == 1){
+            setTitle("GoodNeighbors");
             data.add(new MyItem(R.drawable.item3_1, "국내아동지원", "보기"));
             data.add(new MyItem(R.drawable.item3_2, "북한아동지원사업", "보기"));
             data.add(new MyItem(R.drawable.item3_3, "해외아동교육지원", "보기"));
         }else if(mCurCheckPosition == 2){
+            setTitle("World Vision");
             data.add(new MyItem(R.drawable.item2_1, "국내위기가정아동지원", "보기"));
             data.add(new MyItem(R.drawable.item2_2, "대북농업사업", "보기"));
             data.add(new MyItem(R.drawable.item2_3, "국제식량위기대응사업", "보기"));

@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -86,7 +87,7 @@ public class Login_menu extends AppCompatActivity {
        });
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
-        user_point = (TextView)findViewById(R.id.user_point) ;
+        user_point = (TextView)findViewById(R.id.user_point);
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");

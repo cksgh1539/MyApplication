@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="backroundColor">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="ivory">#FFFFF0</color>
+    <color name="seashell">#FFF5EE</color>
 </resources>

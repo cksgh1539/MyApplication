@@ -108,11 +108,11 @@ public class content_detail extends AppCompatActivity{
                 Log.v("Chanho", "확인");
 
                 // Text 값 받아서 로그 남기기
-                String Second_PWD = ET.getText().toString();
+                String Confirm_PWD = ET.getText().toString();
                 String type = "Donation";
 
                 BackgroundWork backgroundWork = new BackgroundWork((content_detail.this));
-                backgroundWork.execute(type, ID,First_PWD, price_button,Name);
+                backgroundWork.execute(type, ID,Confirm_PWD, price_button,Name);
 /*
                 Log.v("Chanho", Second_PWD);
                 Intent intent2 = new Intent(content_detail.this,Login_menu.class);

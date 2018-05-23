@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical"
-    android:background="@color/backroundColor">
+    android:background="@drawable/login_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/Image"
             android:layout_width="match_parent"
-            android:layout_height="164dp"
+            android:layout_height="155dp"
             android:layout_marginTop="20dp"
             android:padding="8dp"
             android:scaleType="centerInside" />
@@ -25,15 +25,16 @@
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:gravity="center_vertical|center_horizontal"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/Comment"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="265dp"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
         <LinearLayout
@@ -47,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|center_horizontal"
+                android:textStyle="bold"
                 android:text="기부 금액"
                 android:textSize="20sp" />
             <RadioGroup

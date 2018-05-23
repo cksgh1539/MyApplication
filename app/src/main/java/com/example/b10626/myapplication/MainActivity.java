@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         usernameEt = (EditText) findViewById(R.id.userID);
         PasswordEt = (EditText) findViewById(R.id.userPW);
-
 
 
         // Intent intent = new Intent(this,Login_menu.class);
