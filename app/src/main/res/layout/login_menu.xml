@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attrs="http://schemas.android.com/tools"
     android:background="@drawable/login_background"
     android:id="@+id/SRlayout">
-
-
 
 <LinearLayout
 
@@ -24,15 +23,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:background="@drawable/login_background"
         android:orientation="vertical">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+            android:layout_height="303dp"></android.support.v4.view.ViewPager>
 
-
-
+        <com.rd.PageIndicatorView
+            android:id="@+id/pageIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            app:piv_animationType="drop"
+            app:piv_dynamicCount="true"
+            app:piv_interactiveAnimation="true"
+            app:piv_selectedColor="#ff0000"
+            app:piv_unselectedColor="#66FF0000"
+            attrs:foregroundGravity="center"
+            attrs:textAlignment="center"
+            attrs:piv_padding="10dp"
+            attrs:piv_radius="15dp" />
     </LinearLayout>
 
 
@@ -45,9 +57,10 @@
         <TextView
             android:id="@+id/user_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="115dp"
+            android:gravity="center"
 
+            android:textColor="@color/black"
             android:textSize="30dp" />
 
     </LinearLayout>
@@ -55,45 +68,55 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
         android:background="#FAEBD7"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/user_total"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="left"
+                android:textColor="@color/black"
                 android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/user_point"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="left"
-                android:textSize="18dp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/trade_detail"
+        <TextView
+            android:id="@+id/user_point"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:onClick="trade_detail"
-            android:text="@string/trade_detail" />
+            android:layout_height="45dp"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
 
-        <Button
-            android:id="@+id/Contents"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:onClick="Contents_list"
-            android:text="@string/Organ_list" />
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/trade_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:background="#66FF0000"
+        android:onClick="trade_detail"
+        android:text="@string/trade_detail" />
+
+    <Button
+        android:id="@+id/Contents"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:onClick="Contents_list"
+        android:background="#66FF0000"
+        android:layout_weight="1"
+        android:text="@string/Organ_list" />
+
+
 
     </LinearLayout>
 

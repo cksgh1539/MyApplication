@@ -82,7 +82,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 String name = voids[2];
                 String  id = voids[3];
                 String password = voids[4];
-                String password2 = voids[5];
+
                 URL url = new URL(Join_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -94,8 +94,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 String post_data = URLEncoder.encode("uid","UTF-8")+"="+URLEncoder.encode(uid,"UTF-8")+"&"+
                 URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
                 URLEncoder.encode("user","UTF-8")+"="+URLEncoder.encode(id,"UTF-8")+"&"+
-                URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
-                        URLEncoder.encode("password2","UTF-8")+"="+URLEncoder.encode(password2,"UTF-8");
+                URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();

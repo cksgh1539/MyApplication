@@ -90,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:onClick="donation"
-                android:text="donation" />
+                android:background="#FF6347"
+                android:text="@string/donation" />
         </LinearLayout>
 
     </LinearLayout>

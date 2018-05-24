@@ -8,4 +8,5 @@
     <string name="Before_Login">로그인</string>
     <string name="content_detail">선택 후원 설명</string>
     <string name="join">회원가입</string>
+    <string name="donation">기부하기</string>
 </resources>

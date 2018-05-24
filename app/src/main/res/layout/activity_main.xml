@@ -13,10 +13,10 @@
         android:id="@+id/logo_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_above="@+id/userID"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:src = "@drawable/app_logo"/>
+        android:layout_marginTop="38dp"
+        android:src="@drawable/app_logo" />
 
 
     <EditText
@@ -24,7 +24,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/userPW"
-        android:layout_centerInParent="true"
+        android:layout_alignLeft="@+id/userPW"
+        android:layout_alignStart="@+id/userPW"
+        android:layout_marginBottom="13dp"
         android:ems="10"
         android:hint="ID"
         android:inputType="textPersonName" />
@@ -34,9 +36,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Login"
-        android:layout_alignLeft="@+id/userID"
-        android:layout_alignStart="@+id/userID"
-        android:layout_marginBottom="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="73dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPersonName"
@@ -52,7 +53,8 @@
         android:layout_alignStart="@+id/userPW"
         android:layout_marginBottom="7dp"
         android:onClick="OnLogin"
-        android:text="Login" />
+        android:background="#44FFDAB9"
+        android:text="@string/Before_Login" />
 
     <Button
         android:id="@+id/Join"
@@ -64,7 +66,8 @@
         android:layout_alignStart="@+id/Login"
         android:layout_marginBottom="94dp"
         android:onClick="OpenReg"
-        android:text="Join" />
+        android:background="#44FFDAB9"
+        android:text="@string/join" />
 
 
 </RelativeLayout>

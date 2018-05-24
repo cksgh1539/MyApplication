@@ -22,7 +22,7 @@ public class Join extends AppCompatActivity {
         Name = (EditText)findViewById(R.id.name);
         ID = (EditText)findViewById(R.id.id);
         Password = (EditText)findViewById(R.id.password);
-        Password2 = (EditText)findViewById(R.id.password2);
+   //     Password2 = (EditText)findViewById(R.id.password2);
 
     }
 
@@ -31,11 +31,11 @@ public class Join extends AppCompatActivity {
         String str_Name = Name.getText().toString();
         String str_ID = ID.getText().toString();
         String str_Password = Password.getText().toString();
-        String str_Password2 = Password2.getText().toString();
+     //   String str_Password2 = Password2.getText().toString();
         String type = "submit";
 
         BackgroundWork backgroundWork = new BackgroundWork((this));
-        backgroundWork.execute(type, str_UID, str_Name ,str_ID ,str_Password,str_Password2);
+        backgroundWork.execute(type, str_UID, str_Name ,str_ID ,str_Password);
 
     }
 

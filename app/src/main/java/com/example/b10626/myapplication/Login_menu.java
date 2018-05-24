@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rd.PageIndicatorView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hp on 2018-04-09.
@@ -46,7 +50,9 @@ public class Login_menu extends AppCompatActivity {
     String ID,PWD;
 
     Z_PagerViewAdapter adapter;
-    ViewPager viewPager;
+    private ViewPager viewPager;
+    private List<String> numberList;
+    private Indicator indicator;
 
     int deposit_total = 0;
     int minus_total = 0;
@@ -60,31 +66,34 @@ public class Login_menu extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_menu);
 
+        final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
+        pageIndicatorView.setCount(3); // specify total count of indicators
+        pageIndicatorView.setSelection(0);
 
         viewPager = (ViewPager)findViewById(R.id.view);
         adapter = new Z_PagerViewAdapter(this,0);
         viewPager.setAdapter(adapter);
 
-       viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-           @Override
-           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-           }
+            }
 
-           @Override
-           public void onPageSelected(int position) {
-               Log.i("chanho","position : "+position);
+            @Override
+            public void onPageSelected(int position) {
+                pageIndicatorView.setSelection(position);
+            }
 
-           }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-           @Override
-           public void onPageScrollStateChanged(int state) {
+            }
+        });
 
-           }
-       });
+
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
         user_point = (TextView)findViewById(R.id.user_point);
@@ -105,6 +114,8 @@ public class Login_menu extends AppCompatActivity {
             }
         });*/
     }
+
+
 
     private class php extends AsyncTask<String, Void, String> { //---------------로그인 할 때 받은 아이디 , 패스워드 php에서 비교
 
@@ -176,9 +187,9 @@ public class Login_menu extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            user_name.setText("안녕하세요 \n" +name+" 님");
-            user_total.setText("사용가능 적립금 :  "+ total +" 원");
-            user_point.setText("사용가능 포인트 :  "+ex_total + " 점"); //남은 포인트
+            user_name.setText("안녕하세요!! " +name+"님 :D");
+            user_total.setText("  사용가능 적립금 :                                     "+ total +" 원");
+            user_point.setText("  사용가능 포인트 :                                            "+ex_total + " 점"); //남은 포인트
         }
     }
 

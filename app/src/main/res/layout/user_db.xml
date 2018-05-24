@@ -38,13 +38,17 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:onClick="week"
+        android:background="#33FFDAB9"
         android:layout_weight="1"
         android:text="1주일" />
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="#33FFDAB9"
         android:onClick="month"
         android:layout_weight="1"
         android:text="1개월" />
@@ -53,6 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_margin="3dp"
+        android:background="#33FFDAB9"
         android:onClick="Thr_month"
         android:text="3개월" />
 
@@ -61,13 +67,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_margin="3dp"
+        android:background="#33FFDAB9"
         android:onClick="sel_term"
         android:text="기간 선택" />
 </LinearLayout>
 
     <LinearLayout
         android:id="@+id/sel_layout"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="35dp">
 
@@ -130,6 +138,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
     android:id="@+id/SRlayout">
 
     <ListView
