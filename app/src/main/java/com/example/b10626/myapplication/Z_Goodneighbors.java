@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.rd.PageIndicatorView;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
@@ -39,6 +41,28 @@ public class Z_Goodneighbors extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.view);
         Pageadapter = new Z_PagerViewAdapter(this,mCurCheckPosition+1);
         viewPager.setAdapter(Pageadapter);
+
+        final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
+        pageIndicatorView.setCount(3); // specify total count of indicators
+        pageIndicatorView.setSelection(0);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageIndicatorView.setSelection(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         //데이터 준비
         ArrayList<MyItem> data = new ArrayList<MyItem>();

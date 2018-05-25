@@ -51,8 +51,6 @@ public class Login_menu extends AppCompatActivity {
 
     Z_PagerViewAdapter adapter;
     private ViewPager viewPager;
-    private List<String> numberList;
-    private Indicator indicator;
 
     int deposit_total = 0;
     int minus_total = 0;
