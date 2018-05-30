@@ -9,35 +9,39 @@
         android:icon="@mipmap/app"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme"
         >
 
-        <activity android:name=".Splash"
-            android:theme="@style/Splash">
+        <activity android:name=".MainActivity"
+            android:theme="@style/login_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
 
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"
+        <activity android:name=".Z_Organlist"
             android:label="@string/Before_Login"></activity>
         <activity android:name=".Join"
+            android:parentActivityName=".MainActivity"
             android:label="@string/join"></activity>
         <activity android:name=".Login_menu"
             android:label="@string/Login"></activity>
         <activity android:name=".UserData"
+            android:parentActivityName=".Login_menu"
             android:label="@string/trade_detail"> </activity>
         <activity android:name=".user_chart"
+            android:parentActivityName=".Login_menu"
             android:label="@string/graph"></activity>
         <activity android:name=".content_detail"
+            android:parentActivityName=".Z_Goodneighbors"
             android:label="@string/content_detail"></activity>
-        <activity android:name=".Z_Organlist"
-            android:label="@string/Organ_list"></activity>
+
         <activity android:name=".Z_Goodneighbors"
+            android:parentActivityName=".Z_Organlist"
             android:label="@string/Organ_Contents"></activity>
     </application>
 

@@ -59,12 +59,17 @@ public class Login_menu extends AppCompatActivity {
     php task;
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
-    SwipeRefreshLayout SRlayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_menu);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.login_menu_titlebar);
+        TextView titlebar =(TextView)findViewById(R.id.titlebar_text);
+        titlebar.setText("Drop the Bit");
 
         final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
         pageIndicatorView.setCount(3); // specify total count of indicators
@@ -73,6 +78,7 @@ public class Login_menu extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.view);
         adapter = new Z_PagerViewAdapter(this,0);
         viewPager.setAdapter(adapter);
+        //viewPager.setOffscreenPageLimit(3);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -100,7 +106,7 @@ public class Login_menu extends AppCompatActivity {
         PWD = intent.getStringExtra("password");
 
         task = new php();
-        task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
+        task.execute("http://113.198.80.146/web/login_menu.php",ID,PWD);
 
      /*   SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
         SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -186,8 +192,8 @@ public class Login_menu extends AppCompatActivity {
             }
 
             user_name.setText("안녕하세요!! " +name+"님 :D");
-            user_total.setText("  사용가능 적립금 :                                     "+ total +" 원");
-            user_point.setText("  사용가능 포인트 :                                            "+ex_total + " 점"); //남은 포인트
+            user_total.setText(total +" 원");
+            user_point.setText(ex_total + " 점"); //남은 포인트
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -89,13 +90,20 @@ public class UserData extends AppCompatActivity {
     int sel_key=0;
     int Year,Month,Day ,Num;
 
-    TextView Day1,Day2;
+    TextView Day1,Day2,titlebar;
     ImageButton sel_day1,sel_day2,search;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_db);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.login_menu_titlebar);
+        titlebar =(TextView)findViewById(R.id.titlebar_text);
 
         Day1 = (TextView)findViewById(R.id.day1);
         Day2 = (TextView)findViewById(R.id.day2);
@@ -119,7 +127,7 @@ public class UserData extends AppCompatActivity {
       //  Graph();
         task = new php();
 
-        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+        task.execute("http://113.198.80.146/web/login_done.php", ID, PWD);
 
             SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -434,19 +442,39 @@ public class UserData extends AppCompatActivity {
 
             case R.id.trade_detail :
                 graph.setVisibility(View.GONE);
-                setTitle("상세 내역");
+                titlebar.setText("상세 내역");
                 break;
             case R.id.graph :
                 graph.setVisibility(View.VISIBLE);
-                setTitle("내역 그래프");
+                titlebar.setText("내역 그래프");
                 Graph();
                 break;
+            case android.R.id.home :
+                Intent intent = new Intent(this, Login_menu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 호출 액티비티 스택 안쌓임
+                intent.putExtra("ID", ID);
+                intent.putExtra("password",PWD);
+                startActivity(intent);
+                return true;
 
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(this, Login_menu.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 호출 액티비티 스택 안쌓임
+        intent.putExtra("ID", ID);
+        intent.putExtra("password",PWD);
+        startActivity(intent);
+
+    }
+
 }
 
 

@@ -51,13 +51,13 @@ public class Contents_Adapter  extends BaseAdapter {
         ImageView icon = (ImageView) convertView.findViewById(R.id.Contents_Image);
         icon.setImageResource(mItems.get(position).mImage);
 
-        // Set Text 01
+       /* // Set Text 01
         TextView name = (TextView) convertView.findViewById(R.id.Contents_Name);
         name.setText(mItems.get(position).mName);
 
         // Set Text 02
         TextView age = (TextView) convertView.findViewById(R.id.Contents_Price);
-        age.setText(mItems.get(position).mPrice);
+        age.setText(mItems.get(position).mPrice);*/
 
         return convertView;
     }

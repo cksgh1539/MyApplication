@@ -40,9 +40,9 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... voids) {
         String type = voids[0];
-        String login_url = "http://113.198.80.147/test_login.php";
-        String Join_url = "http://113.198.80.147/join.php";
-        String Donation_Url = "http://113.198.80.147/donation.php";
+        String login_url = "http://113.198.80.146/web/test_login.php";
+        String Join_url = "http://113.198.80.146/web/join.php";
+        String Donation_Url = "http://113.198.80.146/web/donation.php";
         if(type.equals("login")) {
             try {
                 user_id = voids[1];
@@ -236,7 +236,6 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             });
         }
         alertDialog.show();
-
     }
 
     @Override

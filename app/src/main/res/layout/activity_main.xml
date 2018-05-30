@@ -6,67 +6,95 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/test_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.example.b10626.myapplication.MainActivity">
 
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:src="@drawable/app_logo" />
+        android:layout_height="130dp"
+        android:layout_above="@+id/userID"
+        android:layout_alignEnd="@+id/userID"
+        android:layout_alignRight="@+id/userID"
+        android:layout_marginBottom="62dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginRight="63dp" />
 
+
+    <ImageView
+    android:id="@+id/logo_login"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_alignTop="@+id/userID"
+    android:layout_toLeftOf="@+id/userID"
+    android:layout_toStartOf="@+id/userID" />
+
+    <ImageView
+        android:id="@+id/logo_password"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/userPW"
+        android:layout_toLeftOf="@+id/userPW"
+        android:layout_toStartOf="@+id/userPW" />
 
     <EditText
         android:id="@+id/userID"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_above="@+id/userPW"
         android:layout_alignLeft="@+id/userPW"
         android:layout_alignStart="@+id/userPW"
         android:layout_marginBottom="13dp"
         android:ems="10"
         android:hint="ID"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"/>
 
     <EditText
         android:id="@+id/userPW"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_above="@+id/Login"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="73dp"
+        android:layout_marginBottom="92dp"
         android:ems="10"
+
         android:hint="password"
         android:inputType="textPersonName"
-        android:password="true" />
+        android:password="true"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white" />
 
     <Button
         android:id="@+id/Login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-
         android:layout_above="@+id/Join"
         android:layout_alignLeft="@+id/userPW"
         android:layout_alignStart="@+id/userPW"
         android:layout_marginBottom="7dp"
         android:onClick="OnLogin"
-        android:background="#44FFDAB9"
-        android:text="@string/Before_Login" />
+        android:background="@drawable/z_login_button"
+        android:textColor="#AB2E6B"
+        android:text="@string/Before_Login"
+        />
 
     <Button
         android:id="@+id/Join"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-
         android:layout_alignLeft="@+id/Login"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/Login"
         android:layout_marginBottom="94dp"
         android:onClick="OpenReg"
-        android:background="#44FFDAB9"
+        android:textColor="@color/white"
+        android:background="@drawable/z_join_button"
         android:text="@string/join" />
 
 

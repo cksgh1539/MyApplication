@@ -32,12 +32,12 @@ public class Z_Organlist extends AppCompatActivity {
 
         //데이터 준비
         ArrayList<MyItem> data = new ArrayList<MyItem>();
-        data.add(new MyItem(R.drawable.unicef_logo, "UNICEF", "자세히 보기"));
-        data.add(new MyItem(R.drawable.goonebor_logo, "Good Neighbors", "자세히 보기"));
-        data.add(new MyItem(R.drawable.world_vision_logo, "World vision", "자세히 보기"));
+        data.add(new MyItem(R.drawable.list_unicef, "UNICEF", "자세히 보기"));
+        data.add(new MyItem(R.drawable.list_good, "Good Neighbors", "자세히 보기"));
+        data.add(new MyItem(R.drawable.list_world, "World vision", "자세히 보기"));
 
 
-        adapter = new Contents_Adapter(this, R.layout.contents_list, data);
+        adapter = new Contents_Adapter(this, R.layout.test_list, data);
 
         //어댑터 연결
         listView = (ListView) findViewById(R.id.organlist);
