@@ -7,7 +7,7 @@
     android:layout_y="145dp"
     android:orientation="horizontal"
     android:layout_weight="1"
-    android:background="@color/backroundColor"
+    android:background="@drawable/z_login_button"
     android:layout_alignParentRight="false">
 
     <ImageView

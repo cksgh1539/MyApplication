@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,8 +48,10 @@ import java.util.List;
 
 public class Login_menu extends AppCompatActivity {
     TextView user_total,user_name,user_point;
+    ImageView refreshbtn;
     AlertDialog.Builder alertDialog;
     String ID,PWD;
+    Bitmap_decode bitmap_decode;
 
     Z_PagerViewAdapter adapter;
     private ViewPager viewPager;
@@ -57,6 +61,7 @@ public class Login_menu extends AppCompatActivity {
     int point_total = 0;
     String total="0";
     php task;
+    SwipeRefreshLayout SRlayout;
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
 
@@ -66,24 +71,30 @@ public class Login_menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_menu);
 
+        bitmap_decode = new Bitmap_decode();
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.login_menu_titlebar);
         TextView titlebar =(TextView)findViewById(R.id.titlebar_text);
+        refreshbtn = (ImageView) findViewById(R.id.refresh_button);
+        refreshbtn.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_refresh_icon,100,100));
         titlebar.setText("Drop the Bit");
+        Log.v("chanho","타이틀바");
 
         final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView);
         pageIndicatorView.setCount(3); // specify total count of indicators
         pageIndicatorView.setSelection(0);
+        Log.v("chanho","인디케이터");
 
         viewPager = (ViewPager)findViewById(R.id.view);
         adapter = new Z_PagerViewAdapter(this,0);
         viewPager.setAdapter(adapter);
+        Log.v("chanho","뷰페이저");
         //viewPager.setOffscreenPageLimit(3);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -104,12 +115,17 @@ public class Login_menu extends AppCompatActivity {
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
-
+        Log.v("chanho","ID받음 "+ ID + PWD);
         task = new php();
-        task.execute("http://113.198.80.146/web/login_menu.php",ID,PWD);
+        Log.v("chanho","php 생성");
 
-     /*   SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
-        SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        String URL = "http://113.198.80.147/login_menu.php";
+        task.execute(URL,ID,PWD);
+        Log.v("chanho","task 실행");
+
+      //SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
+
+        /*  SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 task = new php();
@@ -127,6 +143,7 @@ public class Login_menu extends AppCompatActivity {
         protected String doInBackground(String... urls) {
 
             try {
+                Log.v("chanho","try중");
                 String user_id = urls[1];
                 String user_password = urls[2];
                 URL url = new URL(urls[0]);
@@ -163,16 +180,20 @@ public class Login_menu extends AppCompatActivity {
 
         protected void onPostExecute(String str) { //-----------서버에서 총 금액 및 이름 받기
 
-
+            Log.v("chanho","postExecute");
             String name="";
             String deposit="";
             String minus="";
             String point="";
             String ex_total="";
+            Log.v("chanho","str"+str);
 
             try{
+                Log.v("chanho","post try시작");
                 JSONObject root = new JSONObject(String.valueOf(str));
+                Log.v("chanho","root"+root);
                 JSONArray ja = root.getJSONArray("results");
+                Log.v("chanho","array"+ja);
                 for(int i=0; i<ja.length(); i++){
                     JSONObject jo = ja.getJSONObject(i);
                     total = jo.getString("total");
@@ -185,9 +206,11 @@ public class Login_menu extends AppCompatActivity {
                     minus_total += Integer.parseInt(minus);
                     deposit_total += Integer.parseInt(deposit);
                     point_total += Integer.parseInt(point); // 누적 포인트
+                    Log.v("chanho",total+name+deposit+minus+point+ex_total);
                 }
 
             }catch(JSONException e){
+                Log.v("chanho","오류");
                 e.printStackTrace();
             }
 
@@ -195,6 +218,11 @@ public class Login_menu extends AppCompatActivity {
             user_total.setText(total +" 원");
             user_point.setText(ex_total + " 점"); //남은 포인트
         }
+    }
+    public void refresh(View view){
+                task = new php();
+                task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
+                  Toast.makeText(getApplicationContext(), "새로 고침 중 입니다!", Toast.LENGTH_SHORT).show();
     }
 
     public void trade_detail(View view) { //------------------상세 거래내역

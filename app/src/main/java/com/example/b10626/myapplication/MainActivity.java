@@ -31,83 +31,24 @@ public class MainActivity extends AppCompatActivity {
     private final double finish_interval_time=2000;
     private double backPressedTime =0;
     ImageView logo_image,logo_login,logo_password;
-    Bitmap bitmap,bitmap1,bitmap2;
-
+    Bitmap_decode bitmap_decode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BitmapFactory.Options options =  new BitmapFactory.Options();
-        options.inJustDecodeBounds=true;
-        BitmapFactory.decodeResource(getResources(),R.drawable.app_logo_icon,options);
-        int imageHeight = options.outHeight;
-        int imageWidth = options.outWidth;
-        String imageType = options.outMimeType;
-
-       // options.inSampleSize = 80;
-
-      /*  BitmapFactory.Options options2 =  new BitmapFactory.Options();
-        options2.inJustDecodeBounds=true;
-        options.inSampleSize = 110;*/
-
-
-      //  bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.app_logo_icon,options2);
-     //   bitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.app_login_icon,options);
-      //  bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.app_pass_icon,options);
-
-
         logo_image = (ImageView)findViewById(R.id.logo_image);
         logo_login = (ImageView)findViewById(R.id.logo_login);
         logo_password = (ImageView)findViewById(R.id.logo_password);
 
-        logo_image.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.app_logo_icon,100,100));
-        logo_login.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.app_login_icon,100,100));
-        logo_password.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.app_pass_icon,100,100));
+        logo_image.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_logo_icon,100,100));
+        logo_login.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_login_icon,100,100));
+        logo_password.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_pass_icon,100,100));
 
         usernameEt = (EditText) findViewById(R.id.userID);
         PasswordEt = (EditText) findViewById(R.id.userPW);
 
-    }
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
     }
 
 

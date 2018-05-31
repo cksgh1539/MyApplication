@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="35dp"
+    android:layout_height="30dp"
     android:orientation="horizontal">
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:id="@+id/refresh_button"
 
-        android:onClick="refresh"/>
-
+<ImageView
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:onClick="back"
+    android:src="@drawable/ic_arrow_back_black_24dp"
+    android:background="#00000000"
+    />
     <TextView
-        android:id="@+id/titlebar_text"
+        android:id="@+id/etc_titlebar_text"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:gravity="top|center"
+        android:layout_height="30dp"
+        android:gravity="center|top"
         android:textColor="#ffffff"
         android:textSize="13dp"
         android:textStyle="italic" />

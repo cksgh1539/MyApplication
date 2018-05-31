@@ -24,6 +24,7 @@
 
 
         <activity android:name=".Z_Organlist"
+            android:parentActivityName=".Login_menu"
             android:label="@string/Before_Login"></activity>
         <activity android:name=".Join"
             android:parentActivityName=".MainActivity"

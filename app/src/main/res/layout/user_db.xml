@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/test_background"
     >
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,6 +21,7 @@
         android:foregroundGravity="bottom"
         ></com.github.mikephil.charting.charts.PieChart>
 </RelativeLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,8 +32,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/button2"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:onClick="week"
-        android:background="#33FFDAB9"
+        android:background="@drawable/z_join_button"
         android:layout_weight="1"
         android:text="1주일" />
     <Button
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:background="#33FFDAB9"
+        android:background="@drawable/z_join_button"
         android:onClick="month"
         android:layout_weight="1"
         android:text="1개월" />
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="3dp"
-        android:background="#33FFDAB9"
+        android:background="@drawable/z_join_button"
         android:onClick="Thr_month"
         android:text="3개월" />
 
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="3dp"
-        android:background="#33FFDAB9"
+        android:background="@drawable/z_join_button"
         android:onClick="sel_term"
         android:text="기간 선택" />
 </LinearLayout>
@@ -77,7 +77,9 @@
         android:id="@+id/sel_layout"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="43dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/z_join_button">
 
         <TextView
             android:id="@+id/day1"
@@ -93,10 +95,10 @@
             android:layout_height="35dp"
             android:alpha="1.0"
             android:text="달력"
-            android:src="@drawable/calender"
             android:scaleType="fitXY"
-            android:background="#00ff0000"
-            android:padding="10dp"
+            android:background="@drawable/z_join_button"
+            android:padding="5dp"
+            android:layout_gravity="center"
             android:onClick="sel_day1" />
 
         <TextView
@@ -113,12 +115,11 @@
             android:layout_width="53dp"
             android:layout_height="35dp"
             android:alpha="1.0"
-            android:background="#00ff0000"
+            android:background="@drawable/z_join_button"
             android:onClick="sel_day2"
             android:padding="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/calender"
-
+            android:layout_gravity="center"
             android:text="달력" />
 
         <ImageButton
@@ -126,10 +127,12 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:text="검색"
-            android:src="@drawable/search"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="#00000000"
             android:scaleType="fitEnd"
-            android:paddingLeft="10dp"
-            android:background="#00ff0000"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp"
+
             android:onClick="search"
             android:alpha = "1.0" />
     </LinearLayout>
@@ -140,11 +143,14 @@
     android:layout_height="match_parent"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
     android:id="@+id/SRlayout">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dividerHeight="15dp"
+        android:divider="#00000000"
         android:id="@+id/listView">
     </ListView>
 </android.support.v4.widget.SwipeRefreshLayout>

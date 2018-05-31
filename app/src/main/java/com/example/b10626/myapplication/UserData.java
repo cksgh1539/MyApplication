@@ -7,6 +7,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -80,7 +83,7 @@ public class UserData extends AppCompatActivity {
     LinearLayout sel_layout,DB_layout;
     RelativeLayout graph;
     String ID,PWD;
-    Calendar cal =Calendar.getInstance();
+    Calendar cal = Calendar.getInstance();
     Calendar sel_cal1;
     Calendar sel_cal2;
     PieChart pieChart;
@@ -92,18 +95,19 @@ public class UserData extends AppCompatActivity {
 
     TextView Day1,Day2,titlebar;
     ImageButton sel_day1,sel_day2,search;
-
-
+    Bitmap_decode bitmap_decode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_db);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        bitmap_decode = new Bitmap_decode();
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.login_menu_titlebar);
-        titlebar =(TextView)findViewById(R.id.titlebar_text);
+        getSupportActionBar().setCustomView(R.layout.etc_titlebar);
+        titlebar =(TextView)findViewById(R.id.etc_titlebar_text);
+        titlebar.setText("상세 내역");
 
         Day1 = (TextView)findViewById(R.id.day1);
         Day2 = (TextView)findViewById(R.id.day2);
@@ -126,8 +130,7 @@ public class UserData extends AppCompatActivity {
 
       //  Graph();
         task = new php();
-
-        task.execute("http://113.198.80.146/web/login_done.php", ID, PWD);
+        task.execute("http://113.198.80.147/login_done.php",ID, PWD);
 
             SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -136,11 +139,12 @@ public class UserData extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            sel_layout.setVisibility(View.GONE);
                             cal = Calendar.getInstance();
                             Item_key = 0;
                             listItem.clear();
                             task = new php();
-                            task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+                            task.execute("http://113.198.80.147/login_done.php",ID, PWD);
                             Toast.makeText(getApplicationContext(), "초기 화면으로 돌아갑니다!", Toast.LENGTH_SHORT).show();
                             SRlayout.setRefreshing(false);
                         }
@@ -201,8 +205,8 @@ public class UserData extends AppCompatActivity {
         try{
             JSONObject root = new JSONObject(String.valueOf(str));
             JSONArray ja = root.getJSONArray("results");
-
-            for(int i=ja.length()-1; i>0; i--) {
+            Log.v("chanho"," "+ID+PWD);
+            for(int i=ja.length()-1; i>=0; i--) {
                 JSONObject jo = ja.getJSONObject(i);
                 date = jo.getString("date");
                 name = jo.getString("content_name");
@@ -212,7 +216,7 @@ public class UserData extends AppCompatActivity {
                 sub_point = jo.getString("sub_point");
                 point_total = jo.getString("point_total");
                 total = jo.getString("total");
-
+                Log.v("chanho"," "+ID+PWD+date+name+"\n "+ins_money+"\n "+sub_money+"\n "+total+"\n "+ins_point+"\n "+sub_point+"\n "+point_total);
                 SimpleDateFormat transdate = new SimpleDateFormat("yyyy-MM-dd");
                 Date abc = transdate.parse(date);
 
@@ -238,7 +242,7 @@ public class UserData extends AppCompatActivity {
             infoAdapter adapter = new infoAdapter(listItem,getApplicationContext(),R.layout.infolist);
           listView.setAdapter(adapter);
           adapter.notifyDataSetChanged();
-          listView.setDividerHeight(10);
+          //listView.setDividerHeight(20);
           //  Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(ChangeTime)+"리스트뷰 마지막", Toast.LENGTH_SHORT).show();
 
         }
@@ -284,6 +288,8 @@ public class UserData extends AppCompatActivity {
     public void sel_term(View view){
         if(sel_key == 0) {
             sel_layout.setVisibility(view.VISIBLE);
+            sel_day1.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_calender_icon,100,100));
+            sel_day2.setImageBitmap(bitmap_decode.decodeSampledBitmapFromResource(getResources(),R.drawable.app_calender_icon,100,100));
             sel_key = 1;
             sel_cal1 = null;
             sel_cal2 = null;
@@ -395,9 +401,12 @@ public class UserData extends AppCompatActivity {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setHoleRadius(40);
+        pieChart.setAlpha(0.9f);
+
         // pieChart.setTransparentCircleRadius(1f);
 
         ArrayList<PieEntry> yValues =  new ArrayList<>();
+
         ArrayList<String> xValues =  new ArrayList<>();
         if(deposit > 0)
             yValues.add(new PieEntry(deposit, "입금"));
@@ -407,10 +416,10 @@ public class UserData extends AppCompatActivity {
             yValues.add(new PieEntry(point, "포인트 환원"));
 
 
-        Description description =  new Description();
+       /* Description description =  new Description();
         description.setText("hello, chanho"); // 그래프 밑에 설명
         description.setTextSize(12);
-        pieChart.setDescription(description);
+        pieChart.setDescription(description);*/
 
         pieChart.animateY(1500, Easing.EasingOption.EaseInOutCubic);
 
@@ -418,8 +427,8 @@ public class UserData extends AppCompatActivity {
 
         dataSet.setSliceSpace(3f); // 틈 간격
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
+        dataSet.setColors(new int[]{R.color.skyblue,R.color.orenge,R.color.green},this);
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(15f);
@@ -463,16 +472,13 @@ public class UserData extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
 
-        Intent intent = new Intent(this, Login_menu.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 호출 액티비티 스택 안쌓임
-        intent.putExtra("ID", ID);
+    public void back(View view){
+        Intent intent = new Intent(UserData.this,Login_menu.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //해당 액티비티 위에 스택 삭제
+        intent.putExtra("ID",ID);
         intent.putExtra("password",PWD);
         startActivity(intent);
-
     }
 
 }

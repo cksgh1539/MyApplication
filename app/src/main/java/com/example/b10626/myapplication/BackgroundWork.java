@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,9 +43,9 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... voids) {
         String type = voids[0];
-        String login_url = "http://113.198.80.146/web/test_login.php";
-        String Join_url = "http://113.198.80.146/web/join.php";
-        String Donation_Url = "http://113.198.80.146/web/donation.php";
+        String login_url = "http://113.198.80.147/test_login.php";
+        String Join_url = "http://113.198.80.147/join.php";
+        String Donation_Url = "http://113.198.80.147/donation.php";
         if(type.equals("login")) {
             try {
                 user_id = voids[1];
@@ -171,8 +174,8 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute() {
        // alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog = new AlertDialog.Builder(context);
-
+        ContextThemeWrapper cw = new ContextThemeWrapper(context,R.style.MyAlertDialogStyle);
+        alertDialog = new AlertDialog.Builder(cw);
       //  alertDialog.setTitle("Login Status");
     }
 
@@ -182,6 +185,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
 
         Handler handler = new Handler();
         alertDialog.setMessage(result);
+        Log.v("chanho","result"+result);
 
         if(result.equals("로그인 성공!")) {
      //   alertDialog.setMessage("확인되었습니다");
@@ -211,8 +215,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             alertDialog.setPositiveButton("확인",null);
         }else if(result.equals("로그인 실패!")){
         alertDialog.setPositiveButton("확인",null);
-        }else if(result.equals("기부왕!")){
-
+        }else if(result.equals("기부가 되었습니다!")){
             alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -234,6 +237,8 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                     context.startActivity(intent);
                 }
             });
+        }else if(result.equals("금액을 선택해주세요!")){
+            alertDialog.setPositiveButton("확인",null);
         }
         alertDialog.show();
     }

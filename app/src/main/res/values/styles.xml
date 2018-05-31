@@ -26,4 +26,10 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textSize">7sp</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
 </resources>

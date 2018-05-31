@@ -1,6 +1,7 @@
 package com.example.b10626.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,28 +48,33 @@ public class Contents_Adapter  extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(mResource, parent,false);
         }
+
         // Set Icon
         ImageView icon = (ImageView) convertView.findViewById(R.id.Contents_Image);
-        icon.setImageResource(mItems.get(position).mImage);
+        icon.setImageBitmap(mItems.get(position).mImage);
 
-       /* // Set Text 01
-        TextView name = (TextView) convertView.findViewById(R.id.Contents_Name);
-        name.setText(mItems.get(position).mName);
+       // Set Text 01
+
+            TextView name = (TextView) convertView.findViewById(R.id.Contents_Name);
+            name.setText(mItems.get(position).mName);
+
 
         // Set Text 02
-        TextView age = (TextView) convertView.findViewById(R.id.Contents_Price);
-        age.setText(mItems.get(position).mPrice);*/
+
+            TextView age = (TextView) convertView.findViewById(R.id.Contents_Price);
+            age.setText(mItems.get(position).mPrice);
+
 
         return convertView;
     }
 }
 
 class MyItem {
-    int mImage; // image resource
+    Bitmap mImage; // image resource
     String mName; // text
     String mPrice;  // text
 
-    MyItem(int aImage, String aName, String aPrice) {
+    MyItem(Bitmap aImage, String aName, String aPrice) {
         mImage = aImage;
         mName = aName;
         mPrice = aPrice;

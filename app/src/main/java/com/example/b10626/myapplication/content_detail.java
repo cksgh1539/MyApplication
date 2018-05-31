@@ -1,5 +1,6 @@
 package com.example.b10626.myapplication;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -53,6 +54,11 @@ public class content_detail extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contents_detail);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.etc_titlebar);
+        TextView titlebar =(TextView)findViewById(R.id.etc_titlebar_text);
+        titlebar.setText("후원 상세설명");
+
         Content_Image = (ImageView) findViewById(R.id.Image);
         Content_Name = (TextView) findViewById(R.id.Name);
         Content_Price = (TextView) findViewById(R.id.Price);
@@ -83,7 +89,7 @@ public class content_detail extends AppCompatActivity{
     }
 
     public void donation(View view){
-        price_button = "";
+        price_button = "0000";
         if(RB1.isChecked() == true){
             price_button = "1000";
         }else if(RB2.isChecked() == true){
@@ -135,6 +141,14 @@ public class content_detail extends AppCompatActivity{
         });
 // 창 띄우기
         check.show();
+    }
+
+    public void back(View view){
+        Intent intent = new Intent(content_detail.this,Z_Goodneighbors.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //해당 액티비티 위에 스택 삭제
+        intent.putExtra("ID",ID);
+        intent.putExtra("first_PWD",First_PWD);
+        startActivity(intent);
     }
 
 
