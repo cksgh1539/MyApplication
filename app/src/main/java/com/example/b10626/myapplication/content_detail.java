@@ -103,7 +103,7 @@ public class content_detail extends AppCompatActivity{
         check.setMessage("입력시 바로 기부됩니다!");
 
         final EditText ET = new EditText((content_detail.this));
-        ET.setInputType(InputType.TYPE_CLASS_NUMBER);
+       // ET.setInputType(InputType.TYPE_CLASS_NUMBER);
         PasswordTransformationMethod pass_void = new PasswordTransformationMethod();
         ET.setTransformationMethod(pass_void);
         check.setView(ET);

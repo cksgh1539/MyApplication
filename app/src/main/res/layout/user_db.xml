@@ -117,7 +117,7 @@
             android:alpha="1.0"
             android:background="@drawable/z_join_button"
             android:onClick="sel_day2"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitXY"
             android:layout_gravity="center"
             android:text="달력" />

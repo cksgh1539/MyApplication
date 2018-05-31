@@ -213,6 +213,8 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             });
         }else if(result.equals("이미 등록된 아이디입니다!")){
             alertDialog.setPositiveButton("확인",null);
+        }else if(result.equals("이미 등록된 UID입니다!")){
+            alertDialog.setPositiveButton("확인",null);
         }else if(result.equals("로그인 실패!")){
         alertDialog.setPositiveButton("확인",null);
         }else if(result.equals("기부가 되었습니다!")){
