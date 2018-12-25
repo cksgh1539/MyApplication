@@ -102,36 +102,7 @@
 
         </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="5dp"
-        android:layout_weight="1"
-        android:background="@drawable/z_loginmenu_status"
-        android:gravity="left|center"
-        android:text="사용가능 포인트:"
-        android:textColor="#99000000"
-        android:textSize="18dp" />
-
-    <TextView
-        android:id="@+id/user_point"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginRight="10dp"
-        android:paddingRight="5dp"
-        android:gravity="right|center"
-        android:textColor="#AB2E6B"
-        android:textSize="18dp"
-
-        android:background="@drawable/z_loginmenu_status2"
-        android:layout_weight="1"/>
-        </LinearLayout>
     </LinearLayout>
 
 <LinearLayout

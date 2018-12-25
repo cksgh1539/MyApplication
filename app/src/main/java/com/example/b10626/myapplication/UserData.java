@@ -79,8 +79,8 @@ public class UserData extends AppCompatActivity {
     ListView listView;
     php task;
     ArrayList<userInfoItem> listItem = new ArrayList<>();
-    SwipeRefreshLayout SRlayout;
-    LinearLayout sel_layout,DB_layout;
+   // SwipeRefreshLayout SRlayout;
+    LinearLayout sel_layout;
     RelativeLayout graph;
     String ID,PWD;
     Calendar cal = Calendar.getInstance();
@@ -88,7 +88,7 @@ public class UserData extends AppCompatActivity {
     Calendar sel_cal2;
     PieChart pieChart;
 
-    int deposit,minus,point; //그래프 사용 변수
+    int deposit,minus; //그래프 사용 변수
     int Item_key=0;
     int sel_key=0;
     int Year,Month,Day ,Num;
@@ -115,24 +115,24 @@ public class UserData extends AppCompatActivity {
         sel_day2 = (ImageButton)findViewById(R.id.sel_day2);
         search = (ImageButton)findViewById(R.id.search);
         listView = (ListView) findViewById(R.id.listView);
-        SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
+       // SRlayout = (SwipeRefreshLayout) findViewById(R.id.SRlayout);
         sel_layout = (LinearLayout) findViewById(R.id.sel_layout);
-        DB_layout = (LinearLayout)findViewById(R.id.DB_layout);
+       // DB_layout = (LinearLayout)findViewById(R.id.DB_layout);
         graph = (RelativeLayout)findViewById(R.id.graph);
         graph.setVisibility(View.GONE);
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
 
-        deposit = intent.getIntExtra("deposit_total",0);
-        minus = intent.getIntExtra("minus_total",0);
-        point = intent.getIntExtra("point_total",0);
+      //  deposit = intent.getIntExtra("deposit_total",0);
+      //  minus = intent.getIntExtra("minus_total",0);
+      //  point = intent.getIntExtra("point_total",0);
 
       //  Graph();
         task = new php();
-        task.execute("http://113.198.80.147/login_done.php",ID, PWD);
+        task.execute("http://220.67.230.12/web_147/change/user_chart.php",ID, PWD);
 
-            SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+         /*   SRlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     SRlayout.setRefreshing(true);
@@ -144,7 +144,7 @@ public class UserData extends AppCompatActivity {
                             Item_key = 0;
                             listItem.clear();
                             task = new php();
-                            task.execute("http://113.198.80.147/login_done.php",ID, PWD);
+                            task.execute("http://220.67.230.12/web_147/change/user_chart.php",ID, PWD);
                             Toast.makeText(getApplicationContext(), "초기 화면으로 돌아갑니다!", Toast.LENGTH_SHORT).show();
                             SRlayout.setRefreshing(false);
                         }
@@ -152,7 +152,7 @@ public class UserData extends AppCompatActivity {
 
                 }
             });
-
+*/
 
     }
 
@@ -203,6 +203,9 @@ public class UserData extends AppCompatActivity {
         Date ChangeTime = cal.getTime();
 
         try{
+            deposit = 0;
+            minus = 0;
+            Log.v("chanho","str : "+str);
             JSONObject root = new JSONObject(String.valueOf(str));
             JSONArray ja = root.getJSONArray("results");
             Log.v("chanho"," "+ID+PWD);
@@ -212,27 +215,28 @@ public class UserData extends AppCompatActivity {
                 name = jo.getString("content_name");
                 ins_money = jo.getString("money");
                 sub_money = jo.getString("minus");
-                ins_point = jo.getString("ins_point");
-                sub_point = jo.getString("sub_point");
-                point_total = jo.getString("point_total");
+                deposit +=jo.getInt("money");
+                minus += jo.getInt("minus");
+            
                 total = jo.getString("total");
-                Log.v("chanho"," "+ID+PWD+date+name+"\n "+ins_money+"\n "+sub_money+"\n "+total+"\n "+ins_point+"\n "+sub_point+"\n "+point_total);
+                Log.v("chanho"," "+ID+PWD+date+name+"\n "+ins_money+"\n "+sub_money+"\n "+total);
                 SimpleDateFormat transdate = new SimpleDateFormat("yyyy-MM-dd");
                 Date abc = transdate.parse(date);
 
                 if (i > ja.length() -6 && Item_key == 0) {
-                    listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
+                    listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total));
                 }else if (Item_key == 1 || Item_key == 2 || Item_key == 3) {
                     if (ChangeTime.compareTo(abc) < 0)
-                        listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total,ins_point,sub_point,point_total));
+                        listItem.add(new userInfoItem(date ,name,ins_money,sub_money,total));
                 }else if(Item_key == 4){
                 Date Day1 = sel_cal1.getTime();
                 Date Day2 = sel_cal2.getTime();
 
                 if(Day1.compareTo(abc)<0 && Day2.compareTo(abc)>0) {
-                    listItem.add(new userInfoItem(date, name, ins_money, sub_money, total, ins_point, sub_point, point_total));
+                    listItem.add(new userInfoItem(date, name, ins_money, sub_money, total));
                 }
                 }
+
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -257,7 +261,7 @@ public class UserData extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), new SimpleDateFormat("yyyy.MM.dd").format(c), Toast.LENGTH_SHORT).show();
         listItem.clear();
         task = new php();
-        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+        task.execute("http://220.67.230.12/web_147/change/user_chart.php", ID, PWD);
     }
 
     public void month(View view){
@@ -269,7 +273,7 @@ public class UserData extends AppCompatActivity {
         Item_key = 2;
         listItem.clear();
         task = new php();
-        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+        task.execute("http://220.67.230.12/web_147/change/user_chart.php", ID, PWD);
     }
 
     public void Thr_month(View view){
@@ -281,7 +285,7 @@ public class UserData extends AppCompatActivity {
         Item_key = 3;
         listItem.clear();
         task = new php();
-        task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+        task.execute("http://220.67.230.12/web_147/change/user_chart.php", ID, PWD);
     }
 
     //----------------------------------기간 선택 버튼 활성/비활성
@@ -312,7 +316,7 @@ public class UserData extends AppCompatActivity {
             Item_key = 4;
             listItem.clear();
             task = new php();
-            task.execute("http://113.198.80.147/login_done.php", ID, PWD);
+            task.execute("http://220.67.230.12/web_147/change/user_chart.php", ID, PWD);
             Log.v("chanho","sel_cal : "+sel_cal1+"  sel_cal2 : "+sel_cal2);
         }else{
             Toast.makeText(getApplicationContext(), "기간을 선택해 주세요!", Toast.LENGTH_SHORT).show();
@@ -411,9 +415,9 @@ public class UserData extends AppCompatActivity {
         if(deposit > 0)
             yValues.add(new PieEntry(deposit, "입금"));
         if(minus > 0 )
-            yValues.add(new PieEntry(minus, "컨텐츠 사용"));
-        if(point > 0)
-            yValues.add(new PieEntry(point, "포인트 환원"));
+            yValues.add(new PieEntry(minus, "기부 금액"));
+       // if(point > 0)
+       //     yValues.add(new PieEntry(point, "포인트 환원"));
 
 
        /* Description description =  new Description();

@@ -119,14 +119,9 @@ public class content_detail extends AppCompatActivity{
 
                 BackgroundWork backgroundWork = new BackgroundWork((content_detail.this));
                 backgroundWork.execute(type, ID,Confirm_PWD, price_button,Name);
-/*
-                Log.v("Chanho", Second_PWD);
-                Intent intent2 = new Intent(content_detail.this,Login_menu.class);
-                intent2.putExtra("ID",ID);
-                intent2.putExtra("password",First_PWD);
-                startActivity(intent2);*/
+
                 dialog.dismiss();     //닫기
-                // Event
+
             }
         });
 

@@ -111,7 +111,7 @@ public class Login_menu extends AppCompatActivity {
 
         user_total = (TextView)findViewById(R.id.user_total);
         user_name = (TextView)findViewById(R.id.user_name);
-        user_point = (TextView)findViewById(R.id.user_point);
+       // user_point = (TextView)findViewById(R.id.user_point);
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         PWD = intent.getStringExtra("password");
@@ -119,7 +119,7 @@ public class Login_menu extends AppCompatActivity {
         task = new php();
         Log.v("chanho","php 생성");
 
-        String URL = "http://113.198.80.147/login_menu.php";
+        String URL = "http://220.67.230.12/web_147/change/login_menu2.php";
         task.execute(URL,ID,PWD);
         Log.v("chanho","task 실행");
 
@@ -181,47 +181,46 @@ public class Login_menu extends AppCompatActivity {
         protected void onPostExecute(String str) { //-----------서버에서 총 금액 및 이름 받기
 
             Log.v("chanho","postExecute");
-            String name="";
-            String deposit="";
-            String minus="";
-            String point="";
-            String ex_total="";
+    String name="";
+    String deposit="";
+    String minus="";
+    String point="";
+    String ex_total="";
             Log.v("chanho","str"+str);
 
             try{
-                Log.v("chanho","post try시작");
-                JSONObject root = new JSONObject(String.valueOf(str));
-                Log.v("chanho","root"+root);
-                JSONArray ja = root.getJSONArray("results");
-                Log.v("chanho","array"+ja);
-                for(int i=0; i<ja.length(); i++){
-                    JSONObject jo = ja.getJSONObject(i);
-                    total = jo.getString("total");
-                    name = jo.getString("name");
-                    deposit = jo.getString("deposit");
-                    minus = jo.getString("minus");
-                    point = jo.getString("ins_point"); //적립포인트
-                    ex_total = jo.getString("point_total"); //남은 포인트
+        Log.v("chanho","post try시작");
+        JSONObject root = new JSONObject(String.valueOf(str));
+        Log.v("chanho","root"+root);
+        JSONArray ja = root.getJSONArray("results");
+        Log.v("chanho","array : "+ja);
+        Log.v("chanho","array length : "+ja.length());
+        for(int i=0; i<ja.length(); i++){
+            JSONObject jo = ja.getJSONObject(i);
+            total = jo.getString("total");
+            name = jo.getString("name");
+            Log.v("chanho","total : "+total + " name : "+name );
+            deposit = jo.getString("deposit");
+            minus = jo.getString("minus");
 
-                    minus_total += Integer.parseInt(minus);
-                    deposit_total += Integer.parseInt(deposit);
-                    point_total += Integer.parseInt(point); // 누적 포인트
-                    Log.v("chanho",total+name+deposit+minus+point+ex_total);
-                }
+            minus_total += Integer.parseInt(minus);
+            deposit_total += Integer.parseInt(deposit);
 
-            }catch(JSONException e){
-                Log.v("chanho","오류");
-                e.printStackTrace();
-            }
+        }
+
+    }catch(JSONException e){
+        Log.v("chanho","오류");
+        e.printStackTrace();
+    }
 
             user_name.setText("안녕하세요!! " +name+"님 :D");
             user_total.setText(total +" 원");
-            user_point.setText(ex_total + " 점"); //남은 포인트
-        }
+    //  user_point.setText(ex_total + " 점"); //남은 포인트
+}
     }
     public void refresh(View view){
                 task = new php();
-                task.execute("http://113.198.80.147/login_menu.php",ID,PWD);
+                task.execute("http://220.67.230.12/web_147/change/login_menu2.php",ID,PWD);
                   Toast.makeText(getApplicationContext(), "새로 고침 중 입니다!", Toast.LENGTH_SHORT).show();
     }
 
@@ -233,7 +232,7 @@ public class Login_menu extends AppCompatActivity {
         Intent intent = new Intent(this,UserData.class);
         intent.putExtra("ID", username);
         intent.putExtra("password",password);
-        intent.putExtra("point_total",point_total);
+       // intent.putExtra("point_total",point_total);
         intent.putExtra("deposit_total",deposit_total);
         intent.putExtra("minus_total",minus_total);
         startActivity(intent);

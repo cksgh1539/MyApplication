@@ -84,7 +84,6 @@
         android:textColorHint="@color/white"
         android:backgroundTint="@color/white"/>
 
-
     <Button
         android:id="@+id/button"
         android:layout_width="300dp"

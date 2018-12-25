@@ -137,14 +137,7 @@
             android:alpha = "1.0" />
     </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-    android:id="@+id/SRlayout">
+
 
     <ListView
         android:layout_width="match_parent"
@@ -153,6 +146,6 @@
         android:divider="#00000000"
         android:id="@+id/listView">
     </ListView>
-</android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>
 </LinearLayout>

@@ -43,9 +43,9 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... voids) {
         String type = voids[0];
-        String login_url = "http://113.198.80.147/test_login.php";
-        String Join_url = "http://113.198.80.147/join.php";
-        String Donation_Url = "http://113.198.80.147/donation.php";
+        String login_url = "http://220.67.230.12/web_147/change/login.php";
+        String Join_url = "http://220.67.230.12/web_147/change/join2.php";
+        String Donation_Url = "http://220.67.230.12/web_147/change/donation2.php";
         if(type.equals("login")) {
             try {
                 user_id = voids[1];
@@ -143,7 +143,6 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
                 String post_data = URLEncoder.encode("first","UTF-8")+"="+URLEncoder.encode(user_password,"UTF-8")+"&"+
                         URLEncoder.encode("price","UTF-8")+"="+URLEncoder.encode(price,"UTF-8")+"&"+
                         URLEncoder.encode("ID","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8")+"&"+
-                        URLEncoder.encode("Point","UTF-8")+"="+URLEncoder.encode(Point,"UTF-8")+"&"+
                         URLEncoder.encode("content_name","UTF-8")+"="+URLEncoder.encode(content_name,"UTF-8");
 
                 bufferedWriter.write(post_data);
@@ -217,7 +216,7 @@ public class BackgroundWork extends AsyncTask<String,Void,String> {
             alertDialog.setPositiveButton("확인",null);
         }else if(result.equals("로그인 실패!")){
         alertDialog.setPositiveButton("확인",null);
-        }else if(result.equals("기부가 되었습니다!")){
+        }else if(result.equals("기부되었습니다!")){
             alertDialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

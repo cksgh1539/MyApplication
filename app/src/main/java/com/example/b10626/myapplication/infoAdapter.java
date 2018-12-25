@@ -50,16 +50,16 @@ public class infoAdapter extends BaseAdapter {
             holder.ins_money = convertView.findViewById(R.id.ins_money);
             holder.sub_money = convertView.findViewById(R.id.sub_money);
             holder.total = convertView.findViewById(R.id.total);
-            holder.ins_point = convertView.findViewById(R.id.ins_point);
-            holder.sub_point = convertView.findViewById(R.id.sub_point);
-            holder.point_total = convertView.findViewById(R.id.point_total);
+          //  holder.ins_point = convertView.findViewById(R.id.ins_point);
+         //   holder.sub_point = convertView.findViewById(R.id.sub_point);
+         //   holder.point_total = convertView.findViewById(R.id.point_total);
 
             holder.ins_money1 = convertView.findViewById(R.id.ins_money1);
             holder.sub_money2 = convertView.findViewById(R.id.sub_money2);
             holder.total3 = convertView.findViewById(R.id.total3);
-            holder.ins_point4 = convertView.findViewById(R.id.ins_point4);
-            holder.sub_point5 = convertView.findViewById(R.id.sub_point5);
-            holder.point_total6 = convertView.findViewById(R.id.point_total6);
+          //  holder.ins_point4 = convertView.findViewById(R.id.ins_point4);
+          //  holder.sub_point5 = convertView.findViewById(R.id.sub_point5);
+         //   holder.point_total6 = convertView.findViewById(R.id.point_total6);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder)convertView.getTag();
@@ -70,9 +70,9 @@ public class infoAdapter extends BaseAdapter {
             holder. ins_money1.setText(fData.get(position).getData(2));
             holder. sub_money2.setText(fData.get(position).getData(3));
             holder. total3.setText(fData.get(position).getData(4));
-            holder.ins_point4.setText(fData.get(position).getData(5));
-            holder. sub_point5.setText(fData.get(position).getData(6));
-            holder.point_total6.setText(fData.get(position).getData(7));
+         //   holder.ins_point4.setText(fData.get(position).getData(5));
+        //    holder. sub_point5.setText(fData.get(position).getData(6));
+         //   holder.point_total6.setText(fData.get(position).getData(7));
 
             if(fData.get(position).getData(2).equals("0")){
                 holder.ins_money.setVisibility(convertView.GONE);
@@ -90,7 +90,7 @@ public class infoAdapter extends BaseAdapter {
                 holder. sub_money2.setVisibility(convertView.VISIBLE);
             }
 
-            if(fData.get(position).getData(5).equals("0")){
+           /* if(fData.get(position).getData(5).equals("0")){
                 holder. ins_point.setVisibility(convertView.GONE);
                 holder. ins_point4.setVisibility(convertView.GONE);
             }else{
@@ -106,7 +106,7 @@ public class infoAdapter extends BaseAdapter {
                 holder. sub_point.setVisibility(convertView.VISIBLE);
                 holder. sub_point5.setVisibility(convertView.VISIBLE);
 
-            }
+            }*/
 
         /*    info.setText("날짜 :" + fData.get(position).getData(0) + "\n이름:" + fData.get(position).getData(1)
                     + "\n입금:" + fData.get(position).getData(2) + "\n출금:" + fData.get(position).getData(3)
